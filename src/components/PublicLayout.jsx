@@ -11,15 +11,7 @@ import { getCategories, trackPageView } from '../lib/store.js'
 import { useStoreVersion } from '../lib/useStore.js'
 import { useI18n } from '../lib/i18n.jsx'
 
-const SOCIALS = [
-  { name: 'Facebook', href: 'https://www.facebook.com/share/1EzSaWuCkC/' },
-  { name: 'Instagram', href: 'https://www.instagram.com/jivak_media' },
-  { name: 'TikTok', href: 'https://www.tiktok.com/@jivaktv' },
-  { name: 'YouTube', href: 'https://youtube.com/@jivaktv435' },
-  { name: 'Threads', href: 'https://www.threads.com/@jivak_media' },
-  { name: 'Web', href: 'https://www.jivaktv.net' },
-  { name: 'WhatsApp', href: 'https://wa.me/9647828323106' }
-]
+const SOCIALS = []  // Social-Media-Links werden spaeter wieder hinzugefuegt
 
 const BRAND_PATHS = {
   Facebook: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z',
@@ -149,16 +141,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="footer-social">
-          <span>{t('footer.follow')}</span>
-          <div className="footer-social-links">
-            {SOCIALS.map((s) => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name} data-brand={s.name.toLowerCase()}>
-                <SocialIcon name={s.name} />
-              </a>
-            ))}
-          </div>
-        </div>
+
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} ROJ TV · {t('footer.rights')}</span>
           <span>{t('footer.locally')}</span>
