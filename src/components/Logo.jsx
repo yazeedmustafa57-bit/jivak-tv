@@ -36,7 +36,7 @@ export function Brand({ to = '/', dark = false }) {
   return (
     <a className="brand" href={to}>
       <LogoImage />
-      <span>ROJ <em>Media</em></span>
+      <span>ROJ <em>TV</em></span>
     </a>
   )
 }

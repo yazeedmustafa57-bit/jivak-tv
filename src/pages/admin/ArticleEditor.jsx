@@ -190,9 +190,10 @@ export default function ArticleEditor() {
     setTrStatus('')
     try {
       const data = await fetchTranslation(lang)
+      // kind=missing means the language can't be auto-translated right now
+      // (e.g. Kurdish without Badini proxy) - this is NOT an error.
       if (data.kind === 'missing') {
-        console.error(`[translate] ${lang}: kind=missing (keine Übersetzung erzeugt)`)
-        setTrStatus(t('editor.trAutoFail'))
+        console.log(`[translate] ${lang}: kind=missing (kein automatischer Übersetzer verfügbar)`)
       }
     } catch (err) {
       console.error(`[translate] ${lang} fehlgeschlagen:`, err)
@@ -211,7 +212,10 @@ export default function ArticleEditor() {
     for (const lang of targets) {
       try {
         const data = await fetchTranslation(lang)
-        if (data.kind === 'missing') failedLangs.push(lang)
+        // kind=missing = no auto-translator available (e.g. ku without Badini) - not a failure
+        if (data.kind === 'missing') {
+          console.log(`[translate] ${lang}: kind=missing (kein automatischer Übersetzer verfügbar)`)
+        }
       } catch (err) {
         console.error(`[translate] ${lang} fehlgeschlagen:`, err)
         failedLangs.push(lang)
