@@ -1,0 +1,18 @@
+node_modules/
+dist/
+qa/
+.DS_Store
+*.local
+.vercel
+.env*
+
+# Test/Debug-Scripts (aus Ezidi Media uebernommen, irrelevant fuer Jivak TV)
+check-*.mjs
+check-*.cjs
+shot-*.mjs
+shot-*.cjs
+pw-shot.mjs
+migrate-r2.mjs
+BADINI-REVIEW.md
+R2-SETUP.md
+design-system.md

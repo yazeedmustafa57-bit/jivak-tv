@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ar" dir="rtl" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="جيفاك تي في – منصة مستقلة للأخبار والقصص والتقارير." />
+    <meta name="referrer" content="origin" />
+    <meta name="theme-color" content="#F7F5F0" />
+    <meta property="og:site_name" content="Jivak TV" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Jivak TV" />
+    <meta property="og:description" content="جيفاك تي في – منصة مستقلة للأخبار والقصص والتقارير – أخبار، فيديوهات، صور وبث مباشر." />
+    <meta property="og:image" content="https://jivak-tv.vercel.app/logo.png" />
+    <meta property="og:locale" content="ar" />
+    <meta property="og:locale:alternate" content="de" />
+    <meta property="og:locale:alternate" content="en" />
+    <meta property="og:locale:alternate" content="ku" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jivak TV" />
+    <meta name="twitter:description" content="جيفاك تي في – منصة مستقلة للأخبار والقصص والتقارير." />
+    <meta name="twitter:image" content="https://jivak-tv.vercel.app/logo.png" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="canonical" href="https://jivak-tv.vercel.app/" />
+    <title>Jivak TV</title>
+    <script>
+      // Alte Hash-Links (/#/...) sauber auf echte URLs umleiten
+      (function () {
+        if (location.hash && location.hash.indexOf('#/') === 0) {
+          location.replace(location.pathname.replace(/\/+$/, '') + location.hash.slice(1) + location.search)
+        }
+      })()
+    </script>
+    <script>
+      // Theme vor dem ersten Render anwenden (kein Flackern)
+      (function () {
+        try {
+          var t = localStorage.getItem('jivak-theme')
+          if (t !== 'light' && t !== 'dark') {
+            t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          }
+          document.documentElement.setAttribute('data-theme', t)
+        } catch (e) {}
+      })()
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Jivak TV",
+      "url": "https://jivak-tv.vercel.app",
+      "logo": "https://jivak-tv.vercel.app/logo.png",
+      "description": "Unabhängige Medienplattform der Jivak-Gemeinschaft – Nachrichten, Videos, Fotos und Live-TV.",
+      "sameAs": [
+        "https://www.facebook.com/share/1EzSaWuCkC/",
+        "https://www.instagram.com/jivak_media",
+        "https://www.tiktok.com/@jivaktv",
+        "https://youtube.com/@jivaktv435",
+        "https://www.threads.com/@jivak_media"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Jivak TV",
+      "url": "https://jivak-tv.vercel.app",
+      "inLanguage": ["ar", "ku", "en", "de"]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
