@@ -1,4 +1,4 @@
-// Wetter-Widget für Jivak TV (Open-Meteo, kein API-Key).
+// Wetter-Widget für ROJ TV (Open-Meteo, kein API-Key).
 // Zwei Darstellungsformen:
 //   - WeatherChips:   kompakte Chips im Header (Stadt + Temperatur + Icon)
 //   - WeatherSection: größere Karten auf der Startseite (Region, Stadt, Icon,

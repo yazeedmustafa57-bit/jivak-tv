@@ -105,7 +105,7 @@ const HOME_CATEGORY_ORDER = [
 
   return (
     <div>
-      <Seo title="Jivak TV" description={t('seo.desc')} path="/" />
+      <Seo title="ROJ TV" description={t('seo.desc')} path="/" />
       {featured && (
         <section className="section hero-section">
           <div className="container">

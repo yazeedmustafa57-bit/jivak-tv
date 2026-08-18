@@ -1,4 +1,4 @@
-// Wechselkurs-Widget für Jivak TV (open.er-api.com, kein API-Key).
+// Wechselkurs-Widget für ROJ TV (open.er-api.com, kein API-Key).
 // Zwei Darstellungsformen:
 //   - CurrencyChips:   kompakte Chips im Header ("1 USD = X IQD")
 //   - CurrencySection: größere Karten auf der Startseite (Kurs, ▲/▼-Veränderung

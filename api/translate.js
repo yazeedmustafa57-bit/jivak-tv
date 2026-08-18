@@ -1,4 +1,4 @@
-// Server-Übersetzungs-API für Jivak TV.
+// Server-Übersetzungs-API für ROJ TV.
 // Übersetzt Artikel serverseitig (OpenAI/OpenRouter/MyMemory), speichert das
 // Ergebnis in der Tabelle article_translations und liefert gespeicherte
 // Übersetzungen aus dem Cache. Priorität:

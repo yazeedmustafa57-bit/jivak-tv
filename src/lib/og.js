@@ -1,4 +1,4 @@
-// Social-Preview-Auflösung (OpenGraph) für Jivak TV.
+// Social-Preview-Auflösung (OpenGraph) für ROJ TV.
 // Wählt für Artikel/Videos/Fotos das beste absolute Bild für og:image aus:
 //   1. hochgeladenes Cover (absolute URL oder /pfad)
 //   2. offizielles YouTube-Thumbnail bei Video-Artikeln

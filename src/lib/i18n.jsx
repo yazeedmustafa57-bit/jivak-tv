@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
-// ---------- Sprachsystem (i18n) für Jivak TV ----------
+// ---------- Sprachsystem (i18n) für ROJ TV ----------
 
 export const LANGUAGES = [
   { code: 'ar', label: 'العربية', dir: 'rtl' },
@@ -529,7 +529,7 @@ const T = {
     'editor.brightness': 'السطوع',
     'editor.contrast': 'التباين',
     'editor.saturation': 'التشبع',
-    'editor.watermark': 'إضافة شعار Jivak TV',
+    'editor.watermark': 'إضافة شعار ROJ TV',
     'editor.watermarkOn': 'مفعّل',
     'editor.watermarkOff': 'غير مفعّل',
     'editor.background': 'الخلفية',
@@ -1320,7 +1320,7 @@ const T = {
     'editor.brightness': 'ڕۆناهی',
     'editor.contrast': 'کۆنتراست',
     'editor.saturation': 'تێربوون',
-    'editor.watermark': 'زیادکرنا نیشانەیا Jivak TV',
+    'editor.watermark': 'زیادکرنا نیشانەیا ROJ TV',
     'editor.watermarkOn': 'چالاک',
     'editor.watermarkOff': 'نەچالاک',
     'editor.background': 'پاشبن',
@@ -1645,12 +1645,12 @@ const T = {
     'nav.admin': 'Admin',
     'nav.openMenu': 'Open menu',
     'nav.closeMenu': 'Close menu',
-    'footer.about': 'An independent platform for news, stories and reports from the Jivak community – carefully selected and published responsibly.',
+    'footer.about': 'An independent platform for news, stories and reports from the ROJ community – carefully selected and published responsibly.',
     'footer.nav': 'Navigation',
     'footer.topics': 'Topics',
     'footer.locally': 'Content is managed locally in your browser.',
     'newsletter.title': 'Newsletter',
-    'newsletter.sub': 'Subscribe to receive the latest Jivak TV news directly in your inbox.',
+    'newsletter.sub': 'Subscribe to receive the latest ROJ TV news directly in your inbox.',
     'newsletter.email': 'Your email address',
     'newsletter.subscribe': 'Subscribe',
     'newsletter.success': 'Thank you! You have been subscribed successfully.',
@@ -1698,14 +1698,14 @@ const T = {
 
     'rss.title': 'RSS Feed',
     'hero.h1a': 'Voices, stories and news from the',
-    'hero.h1b': 'Jivak community',
-    'hero.lead': 'Jivak TV is the independent platform where we document our culture, everyday life and future ourselves – carefully selected and published responsibly.',
+    'hero.h1b': 'ROJ community',
+    'hero.lead': 'ROJ TV is the independent platform where we document our culture, everyday life and future ourselves – carefully selected and published responsibly.',
     'hero.explore': 'Explore articles',
     'hero.topics': 'Our topics',
     'hero.platformTitle': 'Community platform',
     'hero.platformText': 'News, culture and education – by us, for us.',
     'home.spotlight': 'In the spotlight',
-    'home.spotlightSub': 'The current leading article on Jivak TV',
+    'home.spotlightSub': 'The current leading article on ROJ TV',
     'home.allArticles': 'All articles',
     'home.readArticle': 'Read article',
     'home.latest': 'Latest articles',
@@ -1764,7 +1764,7 @@ const T = {
     'videos.latest': 'Latest videos',
     'carousel.prev': 'Previous',
     'carousel.next': 'Next',
-    'videos.sub': 'Video reports and contributions from the Jivak community – documented and open to everyone.',
+    'videos.sub': 'Video reports and contributions from the ROJ community – documented and open to everyone.',
     'videos.all': 'All videos ({count})',
     'videos.empty': 'No videos published yet. Add an article in “Video” format from the admin panel.',
     'fotos.title': 'Photos',
@@ -1774,7 +1774,7 @@ const T = {
     'categories.allSub': 'Choose a topic to see all articles in that section.',
     'categories.catSub': 'All published articles in the section “{name}”.',
     'categories.empty': 'No published articles in this category yet.',
-    'logo.alt': 'Jivak TV logo',
+    'logo.alt': 'ROJ TV logo',
     'lang.label': 'Language',
     'pw.show': 'Show password',
     'pw.hide': 'Hide password',
@@ -2125,7 +2125,7 @@ const T = {
     'editor.brightness': 'Brightness',
     'editor.contrast': 'Contrast',
     'editor.saturation': 'Saturation',
-    'editor.watermark': 'Add Jivak TV watermark',
+    'editor.watermark': 'Add ROJ TV watermark',
     'editor.watermarkOn': 'On',
     'editor.watermarkOff': 'Off',
     'editor.background': 'Background',
@@ -2186,8 +2186,8 @@ const T = {
     'theme.toLight': 'Switch to light mode',
     'info.back': '← Back to homepage',
     'info.aboutTitle': 'About us',
-    'info.aboutLead': 'Jivak TV is an independent media platform for the Jivak community – at home and in the diaspora.',
-    'info.aboutP1': 'We publish news, reports and stories that matter to the Jivak community under one principle: responsible publishing. Every article is reviewed before it goes live, and drafts stay private until they are deliberately published.',
+    'info.aboutLead': 'ROJ TV is an independent media platform for the ROJ community – at home and in the diaspora.',
+    'info.aboutP1': 'We publish news, reports and stories that matter to the ROJ community under one principle: responsible publishing. Every article is reviewed before it goes live, and drafts stay private until they are deliberately published.',
     'info.aboutP2': 'Our mission is to document culture, everyday life and the future ourselves – in Arabic, Kurdish, German and English.',
     'info.contactTitle': 'Contact',
     'info.contactLead': 'We welcome your feedback, ideas and contributions.',
@@ -2198,7 +2198,7 @@ const T = {
     'info.privacyP2': 'External social media links are subject to the privacy policies of their providers.',
     'info.imprintTitle': 'Imprint',
     'info.imprintLead': 'Publisher information as required by law.',
-    'info.imprintP1': 'Jivak TV – an independent media platform. Responsible for content: the editorial team.',
+    'info.imprintP1': 'ROJ TV – an independent media platform. Responsible for content: the editorial team.',
     'info.imprintP2': 'For legal enquiries or corrections: jivaktvnewsroom@gmail.com',
     'detail.author': 'By {name}',
     'detail.share': 'Share',
@@ -2267,7 +2267,7 @@ const T = {
     'set.liveTvProgramTime': 'Time (e.g. 18:00)',
     'set.liveTvProgramName': 'Show title',
     'set.liveMode': 'Channel mode',
-    'set.liveModeAuto': 'Jivak TV 24/7 (automatic from own videos)',
+    'set.liveModeAuto': 'ROJ TV 24/7 (automatic from own videos)',
     'set.liveModeStream': 'External stream (HLS/URL)',
     'set.liveImport': 'Import YouTube videos',
     'set.liveImportSub': 'Fetches the latest videos from your YouTube channel (last 6 months only).',
@@ -2284,8 +2284,8 @@ const T = {
     'set.liveImportNone': 'No videos imported yet.',
     'liveTv.nowPlaying': 'Now playing',
     'liveTv.nextUp': 'Up next',
-    'liveTv.autoChannel': 'Jivak TV 24/7',
-    'liveTv.autoChannelSub': 'Our channel runs around the clock – with the latest Jivak TV videos.',
+    'liveTv.autoChannel': 'ROJ TV 24/7',
+    'liveTv.autoChannelSub': 'Our channel runs around the clock – with the latest ROJ TV videos.',
     'liveTv.playlistEmpty': 'No videos are currently available for the live channel.',
     'liveTv.playlistEmptySub': 'Videos from the last 6 months appear automatically. Add new videos in the admin panel.',
     'liveTv.soundOn': 'Enable sound',
@@ -2333,7 +2333,7 @@ const T = {
     'authors.new': 'New author',
     'authors.nameErr': 'Please enter a name.',
     'authors.redaktionRole': 'Editorial team',
-    'authors.redaktionBio': 'The Jivak TV editorial team is responsible for selecting, reviewing and publishing all content – independent, careful and in the interest of the community.',
+    'authors.redaktionBio': 'The ROJ TV editorial team is responsible for selecting, reviewing and publishing all content – independent, careful and in the interest of the community.',
     'mediaLib.title': 'Media library',
     'mediaLib.sub': 'Manage images and videos in one place – with search, filters and tags.',
     'mediaLib.storageUsed': 'Cloud storage used: {used} MB of {total} GB · max. 50 MB per file',
@@ -2396,7 +2396,7 @@ const T = {
     'editor.galleryEmpty': 'No images in the gallery yet.',
     'editor.addImage': 'Add image',
     'search.title': 'Search',
-    'seo.desc': 'Jivak TV – an independent media platform with news, videos, photos and live TV from the Jivak community.',
+    'seo.desc': 'ROJ TV – an independent media platform with news, videos, photos and live TV from the ROJ community.',
     'notFound.title': 'Page not found',
     'notFound.text': 'Sorry, the page you are looking for does not exist or has been moved.',
     'notFound.home': 'Back to home',
@@ -2452,12 +2452,12 @@ const T = {
     'nav.admin': 'Admin',
     'nav.openMenu': 'Menü öffnen',
     'nav.closeMenu': 'Menü schließen',
-    'footer.about': 'Eine unabhängige Plattform für Nachrichten, Geschichten und Reportagen aus der Jivak-Gemeinschaft – sorgfältig ausgewählt und verantwortungsvoll veröffentlicht.',
+    'footer.about': 'Eine unabhängige Plattform für Nachrichten, Geschichten und Reportagen aus der ROJ-Gemeinschaft – sorgfältig ausgewählt und verantwortungsvoll veröffentlicht.',
     'footer.nav': 'Navigation',
     'footer.topics': 'Themen',
     'footer.locally': 'Die Inhalte werden lokal im Browser verwaltet.',
     'newsletter.title': 'Newsletter',
-    'newsletter.sub': 'Abonnieren Sie den Newsletter und erhalten Sie die neuesten Jivak-TV-Nachrichten direkt per E-Mail.',
+    'newsletter.sub': 'Abonnieren Sie den Newsletter und erhalten Sie die neuesten ROJ-TV-Nachrichten direkt per E-Mail.',
     'newsletter.email': 'Ihre E-Mail-Adresse',
     'newsletter.subscribe': 'Abonnieren',
     'newsletter.success': 'Vielen Dank! Sie sind erfolgreich angemeldet.',
@@ -2505,14 +2505,14 @@ const T = {
 
     'rss.title': 'RSS-Feed',
     'hero.h1a': 'Stimmen, Geschichten und Nachrichten aus der',
-    'hero.h1b': 'Jivak-Gemeinschaft',
-    'hero.lead': 'Jivak TV ist die unabhängige Plattform, auf der wir unsere Kultur, unseren Alltag und unsere Zukunft selbst dokumentieren – sorgfältig ausgewählt und verantwortungsvoll veröffentlicht.',
+    'hero.h1b': 'ROJ-Gemeinschaft',
+    'hero.lead': 'ROJ TV ist die unabhängige Plattform, auf der wir unsere Kultur, unseren Alltag und unsere Zukunft selbst dokumentieren – sorgfältig ausgewählt und verantwortungsvoll veröffentlicht.',
     'hero.explore': 'Artikel entdecken',
     'hero.topics': 'Unsere Themen',
     'hero.platformTitle': 'Plattform der Gemeinschaft',
     'hero.platformText': 'Nachrichten, Kultur und Bildung – in unserer Hand.',
     'home.spotlight': 'Im Rampenlicht',
-    'home.spotlightSub': 'Der aktuelle Leitartikel auf Jivak TV',
+    'home.spotlightSub': 'Der aktuelle Leitartikel auf ROJ TV',
     'home.allArticles': 'Alle Artikel',
     'home.readArticle': 'Artikel lesen',
     'home.latest': 'Neueste Artikel',
@@ -2571,7 +2571,7 @@ const T = {
     'videos.latest': 'Neueste Videos',
     'carousel.prev': 'Zurück',
     'carousel.next': 'Weiter',
-    'videos.sub': 'Videoreportagen und Beiträge aus der Jivak-Gemeinschaft – dokumentiert und für alle zugänglich.',
+    'videos.sub': 'Videoreportagen und Beiträge aus der ROJ-Gemeinschaft – dokumentiert und für alle zugänglich.',
     'videos.all': 'Alle Videos ({count})',
     'videos.empty': 'Noch keine Videos veröffentlicht. Lege in der Verwaltung einen Artikel im Format „Video“ an.',
     'fotos.title': 'Fotos',
@@ -2581,7 +2581,7 @@ const T = {
     'categories.allSub': 'Wähle ein Thema, um alle Artikel dieser Rubrik zu sehen.',
     'categories.catSub': 'Alle veröffentlichten Artikel in der Rubrik „{name}“.',
     'categories.empty': 'Noch keine veröffentlichten Artikel in dieser Kategorie.',
-    'logo.alt': 'Jivak TV Logo',
+    'logo.alt': 'ROJ TV Logo',
     'lang.label': 'Sprache',
     'pw.show': 'Passwort anzeigen',
     'pw.hide': 'Passwort ausblenden',
@@ -2932,7 +2932,7 @@ const T = {
     'editor.brightness': 'Helligkeit',
     'editor.contrast': 'Kontrast',
     'editor.saturation': 'Sättigung',
-    'editor.watermark': 'Jivak-TV-Wasserzeichen',
+    'editor.watermark': 'ROJ-TV-Wasserzeichen',
     'editor.watermarkOn': 'An',
     'editor.watermarkOff': 'Aus',
     'editor.background': 'Hintergrund',
@@ -2993,8 +2993,8 @@ const T = {
     'theme.toLight': 'Zum Hellmodus wechseln',
     'info.back': '← Zurück zur Startseite',
     'info.aboutTitle': 'Über uns',
-    'info.aboutLead': 'Jivak TV ist eine unabhängige Medienplattform für die Jivak-Gemeinschaft – in der Heimat und in der Diaspora.',
-    'info.aboutP1': 'Wir veröffentlichen Nachrichten, Reportagen und Geschichten, die für die Jivak-Gemeinschaft wichtig sind – nach einem Grundsatz: verantwortungsvolles Publizieren. Jeder Artikel wird vor der Veröffentlichung geprüft, Entwürfe bleiben privat, bis sie bewusst veröffentlicht werden.',
+    'info.aboutLead': 'ROJ TV ist eine unabhängige Medienplattform für die ROJ-Gemeinschaft – in der Heimat und in der Diaspora.',
+    'info.aboutP1': 'Wir veröffentlichen Nachrichten, Reportagen und Geschichten, die für die ROJ-Gemeinschaft wichtig sind – nach einem Grundsatz: verantwortungsvolles Publizieren. Jeder Artikel wird vor der Veröffentlichung geprüft, Entwürfe bleiben privat, bis sie bewusst veröffentlicht werden.',
     'info.aboutP2': 'Unsere Aufgabe ist es, Kultur, Alltag und Zukunft selbst zu dokumentieren – auf Arabisch, Kurdisch, Deutsch und Englisch.',
     'info.contactTitle': 'Kontakt',
     'info.contactLead': 'Wir freuen uns über Hinweise, Ideen und Beiträge.',
@@ -3005,7 +3005,7 @@ const T = {
     'info.privacyP2': 'Externe Social-Media-Links unterliegen den Datenschutzrichtlinien der jeweiligen Anbieter.',
     'info.imprintTitle': 'Impressum',
     'info.imprintLead': 'Angaben zum Herausgeber gemäß den gesetzlichen Anforderungen.',
-    'info.imprintP1': 'Jivak TV – eine unabhängige Medienplattform. Verantwortlich für den Inhalt: die Redaktion.',
+    'info.imprintP1': 'ROJ TV – eine unabhängige Medienplattform. Verantwortlich für den Inhalt: die Redaktion.',
     'info.imprintP2': 'Für rechtliche Anfragen oder Korrekturen: jivaktvnewsroom@gmail.com',
     'detail.author': 'Von {name}',
     'detail.share': 'Teilen',
@@ -3074,7 +3074,7 @@ const T = {
     'set.liveTvProgramTime': 'Uhrzeit (z. B. 18:00)',
     'set.liveTvProgramName': 'Sendungstitel',
     'set.liveMode': 'Kanal-Modus',
-    'set.liveModeAuto': 'Jivak TV 24/7 (automatisch aus eigenen Videos)',
+    'set.liveModeAuto': 'ROJ TV 24/7 (automatisch aus eigenen Videos)',
     'set.liveModeStream': 'Externer Stream (HLS/URL)',
     'set.liveImport': 'YouTube-Videos importieren',
     'set.liveImportSub': 'Holt die neuesten Videos deines YouTube-Kanals (nur die letzten 6 Monate).',
@@ -3091,8 +3091,8 @@ const T = {
     'set.liveImportNone': 'Noch keine Videos importiert.',
     'liveTv.nowPlaying': 'Jetzt läuft',
     'liveTv.nextUp': 'Als Nächstes',
-    'liveTv.autoChannel': 'Jivak TV 24/7',
-    'liveTv.autoChannelSub': 'Unser Kanal läuft rund um die Uhr – mit den neuesten Videos von Jivak TV.',
+    'liveTv.autoChannel': 'ROJ TV 24/7',
+    'liveTv.autoChannelSub': 'Unser Kanal läuft rund um die Uhr – mit den neuesten Videos von ROJ TV.',
     'liveTv.playlistEmpty': 'Aktuell sind keine Videos für den Live-Kanal verfügbar.',
     'liveTv.playlistEmptySub': 'Videos der letzten 6 Monate erscheinen automatisch im Kanal. Füge im Admin neue Videos hinzu.',
     'liveTv.soundOn': 'Ton aktivieren',
@@ -3140,7 +3140,7 @@ const T = {
     'authors.new': 'Neuer Autor',
     'authors.nameErr': 'Bitte einen Namen eingeben.',
     'authors.redaktionRole': 'Redaktion',
-    'authors.redaktionBio': 'Die Redaktion von Jivak TV verantwortet die Auswahl, Prüfung und Veröffentlichung aller Beiträge – unabhängig, sorgfältig und im Interesse der Gemeinschaft.',
+    'authors.redaktionBio': 'Die Redaktion von ROJ TV verantwortet die Auswahl, Prüfung und Veröffentlichung aller Beiträge – unabhängig, sorgfältig und im Interesse der Gemeinschaft.',
     'mediaLib.title': 'Medienbibliothek',
     'mediaLib.sub': 'Bilder und Videos zentral verwalten – mit Suche, Filtern und Tags.',
     'mediaLib.storageUsed': 'Cloud-Speicher belegt: {used} MB von {total} GB · max. 50 MB pro Datei',
@@ -3203,7 +3203,7 @@ const T = {
     'editor.galleryEmpty': 'Noch keine Bilder in der Galerie.',
     'editor.addImage': 'Bild hinzufügen',
     'search.title': 'Suche',
-    'seo.desc': 'Jivak TV – unabhängige Medienplattform mit Nachrichten, Videos, Fotos und Live-TV aus der Jivak-Gemeinschaft.',
+    'seo.desc': 'ROJ TV – unabhängige Medienplattform mit Nachrichten, Videos, Fotos und Live-TV aus der ROJ-Gemeinschaft.',
     'notFound.title': 'Seite nicht gefunden',
     'notFound.text': 'Entschuldigung, die gesuchte Seite existiert nicht oder wurde verschoben.',
     'notFound.home': 'Zurück zur Startseite',
@@ -3282,14 +3282,14 @@ const ARTICLE_T = {
       body: 'في هذا التقرير المصوّر نرافق احتفالاً من احتفالات المجتمع الإيزيدي، من أولى نغمات الطبل حتى الختام الجماعي في المساء.\n\n## ماذا تشاهدون\n\n- مشاهد من الموسيقى والرقص التقليدي\n- حوارات مع المنظّمين والمنظّمات\n- أصوات من المجتمع حول التراث والمستقبل\n\n> الصور المتحركة تروي قصصاً لا تستطيع الكلمات وحدها حملها.\n\n## التضمين\n\nلتشغيل الفيديو في هذه الصفحة، أضف رابطاً في لوحة الإدارة ضمن «التنسيق: فيديو» (تضمين يوتيوب أو ملف MP4 مباشر).'
     },
     en: {
-      title: 'Video Report: The Jivak Community Celebrates',
-      intro: 'Live scenes from the Jivak community celebration: music, dance and encounters – a film about togetherness created with local cultural associations.',
-      body: 'In this video report we accompany a celebration of the Jivak community – from the first drumbeats to the communal finale in the evening.\n\n## What you will see\n\n- Scenes of traditional music and dance\n- Conversations with the organisers\n- Voices from the community on heritage and the future\n\n> Moving images tell stories that words alone cannot carry.\n\n## Embedding\n\nTo play the video on this page, add a link in the admin panel under “Format: Video” (YouTube embed or a direct MP4 file).'
+      title: 'Video Report: The ROJ Community Celebrates',
+      intro: 'Live scenes from the ROJ community celebration: music, dance and encounters – a film about togetherness created with local cultural associations.',
+      body: 'In this video report we accompany a celebration of the ROJ community – from the first drumbeats to the communal finale in the evening.\n\n## What you will see\n\n- Scenes of traditional music and dance\n- Conversations with the organisers\n- Voices from the community on heritage and the future\n\n> Moving images tell stories that words alone cannot carry.\n\n## Embedding\n\nTo play the video on this page, add a link in the admin panel under “Format: Video” (YouTube embed or a direct MP4 file).'
     },
     de: {
-      title: 'Videoreportage: Das Jivak-Fest der Gemeinschaft',
-      intro: 'Live-Momente vom Fest der Jivak-Gemeinschaft: Musik, Tanz und Begegnungen – ein Film über Zusammenhalt, entstanden mit lokalen Kulturvereinen.',
-      body: 'In dieser Videoreportage begleiten wir ein Fest der Jivak-Gemeinschaft – von den ersten Trommelklängen bis zum gemeinsamen Abschluss am Abend.\n\n## Was ihr seht\n\n- Szenen von traditioneller Musik und Tanz\n- Gespräche mit den Organisatorinnen und Organisatoren\n- Stimmen aus der Gemeinschaft über Erbe und Zukunft\n\n> Bewegte Bilder erzählen Geschichten, die Worte allein nicht tragen können.\n\n## Einbettung\n\nUm das Video auf dieser Seite abzuspielen, hinterlege in der Verwaltung unter „Format: Video“ einen Link (YouTube-Embed oder direkte MP4-Datei).'
+      title: 'Videoreportage: Das ROJ-Fest der Gemeinschaft',
+      intro: 'Live-Momente vom Fest der ROJ-Gemeinschaft: Musik, Tanz und Begegnungen – ein Film über Zusammenhalt, entstanden mit lokalen Kulturvereinen.',
+      body: 'In dieser Videoreportage begleiten wir ein Fest der ROJ-Gemeinschaft – von den ersten Trommelklängen bis zum gemeinsamen Abschluss am Abend.\n\n## Was ihr seht\n\n- Szenen von traditioneller Musik und Tanz\n- Gespräche mit den Organisatorinnen und Organisatoren\n- Stimmen aus der Gemeinschaft über Erbe und Zukunft\n\n> Bewegte Bilder erzählen Geschichten, die Worte allein nicht tragen können.\n\n## Einbettung\n\nUm das Video auf dieser Seite abzuspielen, hinterlege in der Verwaltung unter „Format: Video“ einen Link (YouTube-Embed oder direkte MP4-Datei).'
     },
     ku: {
       title: 'راپۆرتەکا ڤیدیۆیی: جڤاکێ ئێزیدی پیرۆزباهیێ دکەت',
@@ -3326,12 +3326,12 @@ const ARTICLE_T = {
       body: 'الصور تحفظ ما يمرّ سريعاً: الوجوه، الأعياد، ولحظات الحياة اليومية. يجمع هذا الألبوم صوراً قدّمها أعضاء من المجتمع.\n\n## فصول الألبوم\n\n- وجوه من المجتمع\n- الأعياد والمناسبات\n- العمل والحِرف\n- النظرة إلى المستقبل\n\n> كل صورة وثيقة، وبداية لحكاية.\n\nهل تودّ المساهمة بصورك؟ تواصل معنا عبر الجمعيات الثقافية المحلية أو أضف مشاركات مصوّرة جديدة من لوحة الإدارة.'
     },
     en: {
-      title: 'Photo Album: Everyday Life and Culture in the Jivak TV Archive',
+      title: 'Photo Album: Everyday Life and Culture in the ROJ TV Archive',
       intro: 'A selection of moving photographs documenting the community’s everyday life – compiled in a photo album with short captions.',
       body: 'Photographs preserve what passes quickly: faces, festivals and moments of everyday life. This album brings together pictures contributed by members of the community.\n\n## Chapters of the album\n\n- Faces from the community\n- Festivals and occasions\n- Work and crafts\n- Looking to the future\n\n> Every photograph is a document and the beginning of a story.\n\nWould you like to contribute your photos? Contact us through local cultural associations or add new photo contributions from the admin panel.'
     },
     de: {
-      title: 'Fotoalbum: Alltag und Kultur im Jivak-TV-Archiv',
+      title: 'Fotoalbum: Alltag und Kultur im ROJ-TV-Archiv',
       intro: 'Eine Auswahl berührender Fotografien aus dem Alltag der Gemeinschaft – zusammengestellt in einem Fotoalbum mit kurzen Texten.',
       body: 'Fotografien halten fest, was schnell vorbeizieht: Gesichter, Feste und Momente des Alltags. Dieses Album vereint Bilder, die Mitglieder der Gemeinschaft beigesteuert haben.\n\n## Kapitel des Albums\n\n- Gesichter aus der Gemeinschaft\n- Feste und Anlässe\n- Arbeit und Handwerk\n- Blick in die Zukunft\n\n> Jedes Foto ist ein Dokument und der Beginn einer Geschichte.\n\nMöchtest du eigene Fotos beisteuern? Nimm über lokale Kulturvereine Kontakt auf oder füge aus der Verwaltung neue Fotobeiträge hinzu.'
     },
@@ -3348,14 +3348,14 @@ const ARTICLE_T = {
       body: 'في ذكرى أحداث شنكال، يجتمع الإيزيديون في مدن أوروبية كثيرة لإحياء الذكرى معاً. الشموع، دقائق الصمت، والقراءات تزيّن الفعاليات، وكذلك الأحاديث حول ما كان وما يجب أن يأتي.\n\n## يوم للذكرى\n\nالثالث من آب/أغسطس هو يوم حزن للمجتمع الإيزيدي، ولكنه أيضاً يوم تأكّد من الذات. في المراسم تُكرَّم الضحايا، وتُوجَّه رسائل تضامن إلى عائلاتهم.\n\n- فعاليات ذكرى مشتركة في أكثر من عشرين مدينة\n- دقيقة صمت في منتصف النهار في جميع المراكز المجتمعية\n- حلقات نقاش مع ناجين ومختصين\n\n> الذاكرة ليست عبئاً، بل تكليف: من أجل مستقبل أطفالنا.\n\n## تلاحم يتجاوز الحدود\n\nتستغلّ منظمات إيزيدية كثيرة هذه الذكرى لتسليط الضوء على الأوضاع المستمرة في المنطقة وعرض مشاريع الدعم. وفي ألمانيا وفرنسا وهولندا أيضاً تتزايد الرغبة في تحمّل المسؤولية معاً.\n\nفعاليات هذا العام تحمل الشعار: «نتذكّر معاً – نعمل معاً». من يرغب بالمشاركة يجد مراكز تواصل في المجتمع أو لدى الجمعيات الثقافية المحلية.'
     },
     en: {
-      title: 'Welcome to Jivak TV – Current News',
-      intro: 'Jivak TV brings you the latest news and reports from the region and the world.',
-      body: 'Willkommen bei Jivak TV. Hier finden Sie aktuelle Nachrichten, Berichte und Hintergrundinformationen aus der Region und der Welt. Bleiben Sie informiert – jeden Tag aktuell.'
+      title: 'Welcome to ROJ TV – Current News',
+      intro: 'ROJ TV brings you the latest news and reports from the region and the world.',
+      body: 'Willkommen bei ROJ TV. Hier finden Sie aktuelle Nachrichten, Berichte und Hintergrundinformationen aus der Region und der Welt. Bleiben Sie informiert – jeden Tag aktuell.'
     },
     de: {
       title: 'Schingal-Gedenken: Erinnern und Zusammenhalt',
-      intro: 'Die Jivak-Gemeinschaft weltweit gedenkt der Ereignisse von Schingal. Im Vordergrund: Erinnerung, Solidarität und das Versprechen, die Erinnerung wach zu halten.',
-      body: 'Am Jahrestag der Ereignisse von Schingal kommen Jivak in vielen europäischen Städten zusammen, um gemeinsam zu gedenken. Kerzen, Schweigeminuten und Lesungen prägen die Veranstaltungen – ebenso wie Gespräche über das, was war und was kommen muss.\n\n## Ein Tag des Gedenkens\n\nDer 3. August ist ein Tag der Trauer für die Jivak-Gemeinschaft, aber auch ein Tag der Selbstvergewisserung. In den Zeremonien werden die Opfer geehrt und Solidaritätsbotschaften an ihre Familien gerichtet.\n\n- Gemeinsame Gedenkveranstaltungen in mehr als zwanzig Städten\n- Eine Schweigeminute am Mittag in allen Gemeindezentren\n- Gesprächsrunden mit Überlebenden und Fachleuten\n\n> Erinnerung ist keine Last, sondern ein Auftrag: für die Zukunft unserer Kinder.\n\n## Zusammenhalt über Grenzen hinweg\n\nViele Jivak-Organisationen nutzen das Gedenken, um auf die anhaltende Lage in der Region aufmerksam zu machen und Hilfsprojekte vorzustellen. Auch in Deutschland, Frankreich und den Niederlanden wächst der Wille, gemeinsam Verantwortung zu übernehmen.\n\nDie Veranstaltungen dieses Jahres stehen unter dem Motto: „Gemeinsam erinnern – gemeinsam handeln.“ Wer mitmachen möchte, findet Anlaufstellen in der Gemeinschaft oder bei den lokalen Kulturvereinen.'
+      intro: 'Die ROJ-Gemeinschaft weltweit gedenkt der Ereignisse von Schingal. Im Vordergrund: Erinnerung, Solidarität und das Versprechen, die Erinnerung wach zu halten.',
+      body: 'Am Jahrestag der Ereignisse von Schingal kommen ROJ in vielen europäischen Städten zusammen, um gemeinsam zu gedenken. Kerzen, Schweigeminuten und Lesungen prägen die Veranstaltungen – ebenso wie Gespräche über das, was war und was kommen muss.\n\n## Ein Tag des Gedenkens\n\nDer 3. August ist ein Tag der Trauer für die ROJ-Gemeinschaft, aber auch ein Tag der Selbstvergewisserung. In den Zeremonien werden die Opfer geehrt und Solidaritätsbotschaften an ihre Familien gerichtet.\n\n- Gemeinsame Gedenkveranstaltungen in mehr als zwanzig Städten\n- Eine Schweigeminute am Mittag in allen Gemeindezentren\n- Gesprächsrunden mit Überlebenden und Fachleuten\n\n> Erinnerung ist keine Last, sondern ein Auftrag: für die Zukunft unserer Kinder.\n\n## Zusammenhalt über Grenzen hinweg\n\nViele ROJ-Organisationen nutzen das Gedenken, um auf die anhaltende Lage in der Region aufmerksam zu machen und Hilfsprojekte vorzustellen. Auch in Deutschland, Frankreich und den Niederlanden wächst der Wille, gemeinsam Verantwortung zu übernehmen.\n\nDie Veranstaltungen dieses Jahres stehen unter dem Motto: „Gemeinsam erinnern – gemeinsam handeln.“ Wer mitmachen möchte, findet Anlaufstellen in der Gemeinschaft oder bei den lokalen Kulturvereinen.'
     },
     ku: {
       title: 'ساخکرنا بیرەوەریا شنگالێ: پێکڤە ب بیر ئینان',
@@ -3370,14 +3370,14 @@ const ARTICLE_T = {
       body: 'الثقافة الإيزيدية تنبض بالرواية الشفهية والموسيقى والأعياد. من يتحدّث لغتها يمرّر جزءاً من الهوية؛ كل حكاية وكل أغنية لبنة في الذاكرة الثقافية.\n\n## اللغة مفتاح\n\nالكرمانجية ليست لغة يومية فقط، بل حاملة للأدعية والروايات والحِكم. لذلك تنشأ في الشتات دورات لغة وعروض للأطفال تفتح باب الأمّ اللغوية بلعب ومرح.\n\n## الموسيقى والأعياد\n\nفي الأعراس ورأس السنة والأعياد الدينية تتردّد الأغاني التقليدية بمرافقة الطبل والناي. موسيقيون شباب يدمجون هذه الأصوات بترتيبات حديثة، فيصلون بذلك إلى من نشأ بعيداً عن الوطن.\n\n> من يعرف أغانيه لا يخسر تاريخه.\n\nالعمل الثقافي عمل جماعي: يحدث في قاعات الجمعيات وفي الأعياد العائلية، وبشكل متزايد في صيغ رقمية. وهنا تحديداً يأتي دور إيزيدي ميديا – منصة تُظهر هذه الأصوات.'
     },
     en: {
-      title: 'Preserving Jivak Culture: Language, Music and Festivals',
-      intro: 'Kurmanji, music and traditional festivals are the core of Jivak identity. How do diaspora communities preserve their cultural heritage? An overview.',
-      body: 'Jivak culture lives through oral storytelling, music and festivals. Whoever speaks its language passes on a part of the identity; every tale and every song is a building block of cultural memory.\n\n## Language is the key\n\nKurmanji is not only an everyday language, but a carrier of prayers, stories and wisdom. That is why language courses and children’s programmes are springing up in the diaspora, opening the door to the mother tongue through play and joy.\n\n## Music and festivals\n\nAt weddings, New Year and religious festivals, traditional songs resound to the accompaniment of drum and flute. Young musicians blend these sounds with modern arrangements, reaching those who grew up far from home.\n\n> Whoever knows their songs does not lose their history.\n\nCultural work is collective work: it happens in association halls and at family celebrations, and increasingly in digital forms. This is exactly where Jivak TV comes in – a platform that gives these voices a stage.'
+      title: 'Preserving ROJ Culture: Language, Music and Festivals',
+      intro: 'Kurmanji, music and traditional festivals are the core of ROJ identity. How do diaspora communities preserve their cultural heritage? An overview.',
+      body: 'ROJ culture lives through oral storytelling, music and festivals. Whoever speaks its language passes on a part of the identity; every tale and every song is a building block of cultural memory.\n\n## Language is the key\n\nKurmanji is not only an everyday language, but a carrier of prayers, stories and wisdom. That is why language courses and children’s programmes are springing up in the diaspora, opening the door to the mother tongue through play and joy.\n\n## Music and festivals\n\nAt weddings, New Year and religious festivals, traditional songs resound to the accompaniment of drum and flute. Young musicians blend these sounds with modern arrangements, reaching those who grew up far from home.\n\n> Whoever knows their songs does not lose their history.\n\nCultural work is collective work: it happens in association halls and at family celebrations, and increasingly in digital forms. This is exactly where ROJ TV comes in – a platform that gives these voices a stage.'
     },
     de: {
-      title: 'Jivak-Kultur bewahren: Sprache, Musik und Feste',
-      intro: 'Kurmandschi, Musik und traditionelle Feste sind der Kern der Jivak-Identität. Wie bewahren Gemeinschaften in der Diaspora ihr kulturelles Erbe? Ein Überblick.',
-      body: 'Die Jivak-Kultur lebt von mündlichem Erzählen, Musik und Festen. Wer ihre Sprache spricht, gibt einen Teil der Identität weiter; jede Geschichte und jedes Lied ist ein Baustein des kulturellen Gedächtnisses.\n\n## Sprache als Schlüssel\n\nKurmandschi ist nicht nur Alltagssprache, sondern Trägerin von Gebeten, Erzählungen und Weisheit. Deshalb entstehen in der Diaspora Sprachkurse und Kinderangebote, die spielerisch die Tür zur Muttersprache öffnen.\n\n## Musik und Feste\n\nBei Hochzeiten, Neujahr und religiösen Festen erklingen traditionelle Lieder mit Trommel und Flöte. Junge Musiker verbinden diese Klänge mit modernen Arrangements und erreichen damit auch die, die fern der Heimat aufgewachsen sind.\n\n> Wer seine Lieder kennt, verliert seine Geschichte nicht.\n\nKulturarbeit ist Gemeinschaftsarbeit: Sie findet in Vereinshäusern und bei Familienfesten statt – und zunehmend in digitaler Form. Genau hier setzt Jivak TV an: eine Plattform, die diesen Stimmen Raum gibt.'
+      title: 'ROJ-Kultur bewahren: Sprache, Musik und Feste',
+      intro: 'Kurmandschi, Musik und traditionelle Feste sind der Kern der ROJ-Identität. Wie bewahren Gemeinschaften in der Diaspora ihr kulturelles Erbe? Ein Überblick.',
+      body: 'Die ROJ-Kultur lebt von mündlichem Erzählen, Musik und Festen. Wer ihre Sprache spricht, gibt einen Teil der Identität weiter; jede Geschichte und jedes Lied ist ein Baustein des kulturellen Gedächtnisses.\n\n## Sprache als Schlüssel\n\nKurmandschi ist nicht nur Alltagssprache, sondern Trägerin von Gebeten, Erzählungen und Weisheit. Deshalb entstehen in der Diaspora Sprachkurse und Kinderangebote, die spielerisch die Tür zur Muttersprache öffnen.\n\n## Musik und Feste\n\nBei Hochzeiten, Neujahr und religiösen Festen erklingen traditionelle Lieder mit Trommel und Flöte. Junge Musiker verbinden diese Klänge mit modernen Arrangements und erreichen damit auch die, die fern der Heimat aufgewachsen sind.\n\n> Wer seine Lieder kennt, verliert seine Geschichte nicht.\n\nKulturarbeit ist Gemeinschaftsarbeit: Sie findet in Vereinshäusern und bei Familienfesten statt – und zunehmend in digitaler Form. Genau hier setzt ROJ TV an: eine Plattform, die diesen Stimmen Raum gibt.'
     },
     ku: {
       title: 'پاراستنا کەلتۆرێ ئێزیدیان: زمان، موزیک و جەژن',
@@ -3392,14 +3392,14 @@ const ARTICLE_T = {
       body: 'مبادرة تعليمية جديدة تريد دعم الشباب الإيزيدي بشكل ملموس – من المدرسة إلى التدريب المهني حتى الجامعة. مرشدون ومرشدات متطوعون يرافقون المشاركين على مدى عدة أشهر.\n\n## ماذا يقدّم البرنامج\n\n- مرافقة تعليمية أسبوعية في مجموعات صغيرة\n- إرشاد من طلاب ومختصين\n- ورش حول التقديم والتوجيه المهني\n- استشارات منح ومرافقة في التقديم\n\n## لماذا التعليم يصنع المستقبل\n\nالتعليم أقوى رافعة للمشاركة. من يحقّق نتائج جيدة ويطوّر آفاقه الخاصة يساهم بنشاط في صياغة مستقبل المجتمع. تنطلق المبادرة أولاً في ثلاث مدن، ومن المقرر توسيعها عند نجاحها.\n\nيمكن للعائلات المهتمة التسجيل عبر الجمعيات الثقافية المحلية. المشاركة مجانية.'
     },
     en: {
-      title: 'A New Education Initiative for Jivak Youth',
-      intro: 'Tutoring, mentoring and career guidance: a new programme that wants to accompany Jivak youth on their educational path and open up new horizons.',
-      body: 'A new education initiative wants to support Jivak youth in concrete ways – from school to vocational training through to university. Volunteer mentors accompany the participants over several months.\n\n## What the programme offers\n\n- Weekly learning support in small groups\n- Mentoring from students and professionals\n- Workshops on applications and career orientation\n- Scholarship advice and application support\n\n## Why education shapes the future\n\nEducation is the strongest lever for participation. Those who achieve good results and develop their own prospects actively help shape the community’s future. The initiative starts in three cities and is set to expand if it succeeds.\n\nInterested families can register through local cultural associations. Participation is free.'
+      title: 'A New Education Initiative for ROJ Youth',
+      intro: 'Tutoring, mentoring and career guidance: a new programme that wants to accompany ROJ youth on their educational path and open up new horizons.',
+      body: 'A new education initiative wants to support ROJ youth in concrete ways – from school to vocational training through to university. Volunteer mentors accompany the participants over several months.\n\n## What the programme offers\n\n- Weekly learning support in small groups\n- Mentoring from students and professionals\n- Workshops on applications and career orientation\n- Scholarship advice and application support\n\n## Why education shapes the future\n\nEducation is the strongest lever for participation. Those who achieve good results and develop their own prospects actively help shape the community’s future. The initiative starts in three cities and is set to expand if it succeeds.\n\nInterested families can register through local cultural associations. Participation is free.'
     },
     de: {
-      title: 'Neue Bildungsinitiative für die Jivak-Jugend',
-      intro: 'Nachhilfe, Mentoring und Berufsorientierung: Ein neues Programm will Jivak-Jugendliche auf ihrem Bildungsweg begleiten und Perspektiven eröffnen.',
-      body: 'Eine neue Bildungsinitiative will die Jivak-Jugend konkret unterstützen – von der Schule über die Ausbildung bis zur Universität. Ehrenamtliche Mentorinnen und Mentoren begleiten die Teilnehmenden über mehrere Monate.\n\n## Was das Programm bietet\n\n- Wöchentliche Lernbegleitung in kleinen Gruppen\n- Mentoring durch Studierende und Fachleute\n- Workshops zu Bewerbung und Berufsorientierung\n- Stipendienberatung und Begleitung bei Bewerbungen\n\n## Warum Bildung Zukunft schafft\n\nBildung ist der stärkste Hebel für Teilhabe. Wer gute Ergebnisse erzielt und eigene Perspektiven entwickelt, gestaltet aktiv die Zukunft der Gemeinschaft mit. Die Initiative startet zunächst in drei Städten und soll bei Erfolg ausgeweitet werden.\n\nInteressierte Familien können sich über die lokalen Kulturvereine anmelden. Die Teilnahme ist kostenlos.'
+      title: 'Neue Bildungsinitiative für die ROJ-Jugend',
+      intro: 'Nachhilfe, Mentoring und Berufsorientierung: Ein neues Programm will ROJ-Jugendliche auf ihrem Bildungsweg begleiten und Perspektiven eröffnen.',
+      body: 'Eine neue Bildungsinitiative will die ROJ-Jugend konkret unterstützen – von der Schule über die Ausbildung bis zur Universität. Ehrenamtliche Mentorinnen und Mentoren begleiten die Teilnehmenden über mehrere Monate.\n\n## Was das Programm bietet\n\n- Wöchentliche Lernbegleitung in kleinen Gruppen\n- Mentoring durch Studierende und Fachleute\n- Workshops zu Bewerbung und Berufsorientierung\n- Stipendienberatung und Begleitung bei Bewerbungen\n\n## Warum Bildung Zukunft schafft\n\nBildung ist der stärkste Hebel für Teilhabe. Wer gute Ergebnisse erzielt und eigene Perspektiven entwickelt, gestaltet aktiv die Zukunft der Gemeinschaft mit. Die Initiative startet zunächst in drei Städten und soll bei Erfolg ausgeweitet werden.\n\nInteressierte Familien können sich über die lokalen Kulturvereine anmelden. Die Teilnahme ist kostenlos.'
     },
     ku: {
       title: 'دەستپێشخەریەکا نوی یا خواندنێ بۆ گەنجێن ئێزیدی',
@@ -3415,12 +3415,12 @@ const ARTICLE_T = {
     },
     en: {
       title: 'From the Inside: A Report from the Community',
-      intro: 'A report on everyday life in the Jivak community – how people come together, help each other and are there for one another. Still in preparation.',
+      intro: 'A report on everyday life in the ROJ community – how people come together, help each other and are there for one another. Still in preparation.',
       body: 'This report is currently in preparation. It accompanies the families, associations and individuals who carry community life.\n\n## Planned chapters\n\n- A day at the community centre\n- Conversations with volunteers\n- Looking to the future\n\nMore impressions coming soon.'
     },
     de: {
       title: 'Von innen: Eine Reportage aus der Gemeinschaft',
-      intro: 'Eine Reportage über den Alltag in der Jivak-Gemeinschaft – wie Menschen zusammenkommen, helfen und füreinander da sind. Noch in Vorbereitung.',
+      intro: 'Eine Reportage über den Alltag in der ROJ-Gemeinschaft – wie Menschen zusammenkommen, helfen und füreinander da sind. Noch in Vorbereitung.',
       body: 'Diese Reportage befindet sich derzeit in Vorbereitung. Sie begleitet Familien, Vereine und Einzelpersonen, die das Gemeinschaftsleben tragen.\n\n## Geplante Kapitel\n\n- Ein Tag im Gemeindezentrum\n- Gespräche mit Ehrenamtlichen\n- Blick in die Zukunft\n\nWeitere Eindrücke folgen bald.'
     },
     ku: {
@@ -3493,7 +3493,7 @@ export function I18nProvider({ children }) {
         title: tr.title,
         intro: tr.intro,
         body: tr.body,
-        author: tr.author || { ar: 'تحرير إيزيدي ميديا', ku: 'دەستەیا نڤیسینا میدیا ئێزیدی', en: 'Jivak TV Editorial Team', de: 'Redaktion Jivak TV' }[lang]
+        author: tr.author || { ar: 'تحرير إيزيدي ميديا', ku: 'دەستەیا نڤیسینا میدیا ئێزیدی', en: 'ROJ TV Editorial Team', de: 'Redaktion ROJ TV' }[lang]
       }
     }
     const SEED_AUTHOR_IDS = new Set(['author-redaktion'])

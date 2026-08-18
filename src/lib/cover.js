@@ -1,4 +1,4 @@
-// Automatisch generierte Platzhalter-Titelbilder für Jivak TV.
+// Automatisch generierte Platzhalter-Titelbilder für ROJ TV.
 // Neutraler BBC-/Rudaw-Stil: weißer Hintergrund ohne Farbverläufe – die Bilder liegen direkt auf dem Seitenweiß.
 // Sobald ein echtes Bild hochgeladen wird, ersetzt es den Platzhalter.
 // Kein externer Bilddienst, kein Stock.
@@ -53,7 +53,7 @@ function buildSvg(motif) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
   <rect width="1600" height="900" fill="#FFFFFF"/>
   ${motifSvg(motif)}
-  <text x="48" y="842" font-family="'Almarai','Inter',sans-serif" font-size="32" font-weight="700" letter-spacing="0.3" fill="#8F897E">Jivak <tspan fill="#C4472C">Media</tspan></text>
+  <text x="48" y="842" font-family="'Almarai','Inter',sans-serif" font-size="32" font-weight="700" letter-spacing="0.3" fill="#8F897E">ROJ <tspan fill="#C4472C">Media</tspan></text>
 </svg>`
 }
 

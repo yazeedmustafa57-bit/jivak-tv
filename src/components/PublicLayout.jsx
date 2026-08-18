@@ -115,7 +115,7 @@ function Footer() {
         <div className="footer-grid">
           <div>
             <LogoImage size={56} className="footer-logo" />
-            <h4>Jivak TV</h4>
+            <h4>ROJ TV</h4>
             <p>{t('footer.about')}</p>
           </div>
           <div>
@@ -160,7 +160,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Jivak TV · {t('footer.rights')}</span>
+          <span>© {new Date().getFullYear()} ROJ TV · {t('footer.rights')}</span>
           <span>{t('footer.locally')}</span>
           <ThemeToggle onDark />
         </div>

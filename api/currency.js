@@ -1,4 +1,4 @@
-// Wechselkurs-API für Jivak TV.
+// Wechselkurs-API für ROJ TV.
 // Datenquelle: open.er-api.com (kostenlos, kein API-Key, keine Kosten) –
 // Frankfurter API unterstützt IQD nicht. Abruf: 1×/Stunde.
 // Die Vortags-Veränderung (▲/▼ %) wird dauerhaft in der Supabase-Tabelle

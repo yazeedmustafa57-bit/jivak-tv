@@ -1,4 +1,4 @@
-// Wetter-API für Jivak TV.
+// Wetter-API für ROJ TV.
 // Holt aktuelle Wetterdaten für 5 Städte von Open-Meteo (kostenlos, kein API-Key)
 // und cached das Ergebnis serverseitig (45 Minuten TTL). Bei Fehlern wird –
 // falls vorhanden – der letzte bekannte Stand ausgeliefert (stale), damit die

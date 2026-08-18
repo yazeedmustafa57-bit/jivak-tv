@@ -167,14 +167,14 @@ export default function ArticleDetail() {
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'NewsArticle',
-          headline: local.title || article.title || 'Jivak TV',
+          headline: local.title || article.title || 'ROJ TV',
           description: (local.intro || article.intro || '').slice(0, 200),
           image: ogImage || undefined,
           datePublished: new Date(article.createdAt || Date.now()).toISOString(),
           dateModified: new Date(article.updatedAt || article.createdAt || Date.now()).toISOString(),
           inLanguage: lang,
-          author: { '@type': 'Organization', name: local.author || 'Jivak TV' },
-          publisher: { '@type': 'Organization', name: 'Jivak TV', url: 'https://jivak-tv.vercel.app', logo: { '@type': 'ImageObject', url: 'https://jivak-tv.vercel.app/logo.png' } },
+          author: { '@type': 'Organization', name: local.author || 'ROJ TV' },
+          publisher: { '@type': 'Organization', name: 'ROJ TV', url: 'https://jivak-tv.vercel.app', logo: { '@type': 'ImageObject', url: 'https://jivak-tv.vercel.app/logo.png' } },
           mainEntityOfPage: `https://jivak-tv.vercel.app/artikel/${article.slug}`,
           articleSection: category ? tCategory(category) : undefined
         }}

@@ -1,4 +1,4 @@
-// Lokaler Datenlayer für Jivak TV.
+// Lokaler Datenlayer für ROJ TV.
 // Bewusste Entscheidung: keine externe Datenbank / kein Provider.
 // Alle Inhalte werden im Browser (localStorage) gespeichert.
 // Hochgeladene Videos liegen im Blob-Speicher (IndexedDB), Referenzen als idb://<id>.
@@ -223,7 +223,7 @@ const ARTICLE_CATEGORY_MAP = {
 }
 const daysAgo = (n) => Date.now() - n * 24 * 60 * 60 * 1000
 
-const DEFAULT_AUTHOR = 'Redaktion Jivak TV'
+const DEFAULT_AUTHOR = 'Redaktion ROJ TV'
 
 const SEED_ARTICLES = [
   {
@@ -791,7 +791,7 @@ const SEED_AUTHORS = [
   {
     id: DEFAULT_AUTHOR_ID,
     slug: 'redaktion',
-    name: 'Redaktion Jivak TV',
+    name: 'Redaktion ROJ TV',
     role: '',
     bio: '',
     image: null,
@@ -805,7 +805,7 @@ function exampleMediaItem() {
   return {
     id: 'media-beispiel-video',
     type: 'video',
-    name: 'Jivak TV Beispiel-Video (MP4)',
+    name: 'ROJ TV Beispiel-Video (MP4)',
     url: EXAMPLE_MEDIA_URL,
     tag: 'Beispiel, MP4',
     createdAt: Date.now()
@@ -1033,7 +1033,7 @@ export function exportData() {
   return JSON.stringify(
     {
       exportedAt: new Date().toISOString(),
-      app: 'Jivak TV',
+      app: 'ROJ TV',
       articles: getArticles(),
       categories: getCategories()
     },

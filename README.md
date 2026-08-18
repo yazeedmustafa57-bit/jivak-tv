@@ -1,4 +1,4 @@
-# Jivak TV
+# ROJ TV
 
 Unabhängige Medien-Plattform der jivakschen Gemeinschaft: öffentliche Website mit
 Artikeln, Kategorien und Reportagen sowie ein privater Admin-Bereich zum
@@ -14,7 +14,7 @@ Viersprachig: Arabisch, Kurdisch (Badînî/بادینی), Deutsch und Englisch.
 - Artikel-Detailseiten mit Inhalts-Formatierung (Absätze, Zwischenüberschriften, Listen, Zitate)
 - Video-Player (YouTube-Einbettung / MP4) und großes Foto-Format auf der Detailseite
 - Kategorien-Seiten, responsives Layout (Desktop / Tablet / Mobile)
-- Eigenes Logo (Jivak-TV-Emblem) in Header, Footer, Admin-Sidebar und Login
+- Eigenes Logo (ROJ-TV-Emblem) in Header, Footer, Admin-Sidebar und Login
 
 **Admin-Bereich (dunkles Theme, unter `/admin`)**
 - Passwortgeschützte Anmeldung
@@ -120,4 +120,4 @@ npm run dev
 - Sofern `RESEND_API_KEY` + `NEWSLETTER_FROM` gesetzt sind, sendet `api/newsletter.js` eine Willkommens-E-Mail mit signiertem Abmelde-Link (`api/newsletter-unsubscribe.js`, HMAC mit `NEWSLETTER_SECRET`).
 - Admin-Bereich → **Newsletter**: Abonnenten-Liste, Suche, Löschen, CSV-Export (`api/newsletter-admin.js`, geschützt durch Supabase-Session-Token).
 - Ohne Resend-Konfiguration werden Anmeldungen weiterhin gespeichert, aber es wird keine E-Mail versendet (Status wird im Admin angezeigt).
-- Hinweis: Ohne verifizierte Domain in Resend liefert der Sandbox-Absender `onboarding@resend.dev` nur an die Inhaber-E-Mail. Für den Versand an alle Abonnenten muss `jivaktv.net` in Resend verifiziert werden, danach `NEWSLETTER_FROM` auf `Jivak TV <newsletter@jivaktv.net>` umstellen.
+- Hinweis: Ohne verifizierte Domain in Resend liefert der Sandbox-Absender `onboarding@resend.dev` nur an die Inhaber-E-Mail. Für den Versand an alle Abonnenten muss `jivaktv.net` in Resend verifiziert werden, danach `NEWSLETTER_FROM` auf `ROJ TV <newsletter@jivaktv.net>` umstellen.

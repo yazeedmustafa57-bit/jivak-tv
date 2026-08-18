@@ -1,4 +1,4 @@
-// Bild-Optimierung für Jivak TV.
+// Bild-Optimierung für ROJ TV.
 // Skaliert Remote-Bilder serverseitig und liefert WebP (optional AVIF/JPEG),
 // damit die Seite schnell lädt und wenig Datenvolumen verbraucht.
 // Aufruf: /api/image?src=<encoded-url>&w=<breite>&q=<qualität>&f=<webp|avif|jpeg|png|auto>
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
   try {
     upstream = await fetch(effectiveUrl.toString(), {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; JivakTVImageBot/1.0)',
+        'User-Agent': 'Mozilla/5.0 (compatible; ROJTVImageBot/1.0)',
         Accept: 'image/*'
       },
       signal: ctrl.signal,
@@ -85,7 +85,7 @@ export default async function handler(req, res) {
       const next = new URL(location, effectiveUrl)
       if (!ALLOWED_HOSTS.has(next.hostname)) throw new Error('host-not-allowed')
       upstream = await fetch(next.toString(), {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; JivakTVImageBot/1.0)', Accept: 'image/*' },
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ROJTVImageBot/1.0)', Accept: 'image/*' },
         signal: ctrl.signal,
         redirect: 'follow'
       })

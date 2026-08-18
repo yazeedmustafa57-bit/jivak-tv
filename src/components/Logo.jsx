@@ -1,4 +1,4 @@
-import jivakLogo from '../assets/jivak-logo.png'
+import rojLogo from '../assets/roj-logo.png'
 import { useI18n } from '../lib/i18n.jsx'
 
 export function LogoMark({ size = 30 }) {
@@ -24,7 +24,7 @@ export function LogoImage({ size = 42, className = '' }) {
   return (
     <img
       className={`brand-logo ${className}`}
-      src={jivakLogo}
+      src={rojLogo}
       alt={t('logo.alt')}
       width={size}
       height={size}
@@ -36,7 +36,7 @@ export function Brand({ to = '/', dark = false }) {
   return (
     <a className="brand" href={to}>
       <LogoImage />
-      <span>Jivak <em>Media</em></span>
+      <span>ROJ <em>Media</em></span>
     </a>
   )
 }

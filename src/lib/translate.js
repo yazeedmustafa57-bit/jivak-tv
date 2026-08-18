@@ -1,4 +1,4 @@
-// Server-Client für die automatische Artikel-Übersetzung (Jivak TV).
+// Server-Client für die automatische Artikel-Übersetzung (ROJ TV).
 // Übersetzt wird serverseitig über /api/translate – der Browser erhält nur
 // fertige Texte. Ergebnisse werden zusätzlich in localStorage gecacht, damit
 // die Seite bei wiederholten Besuchen sofort in der Zielsprache erscheint.

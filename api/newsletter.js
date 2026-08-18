@@ -44,7 +44,7 @@ async function sendBrevoEmail(to, subject, htmlContent) {
   const apiKey = process.env.BREVO_API_KEY
   if (!apiKey) return { ok: false, error: 'brevo-not-configured' }
   const fromEmail = process.env.BREVO_FROM_EMAIL || 'newsletter@jivaktv.net'
-  const fromName = process.env.BREVO_FROM_NAME || 'Jivak TV'
+  const fromName = process.env.BREVO_FROM_NAME || 'ROJ TV'
   try {
     const resp = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
@@ -95,11 +95,11 @@ async function handleSubscribe(req, res) {
     const mails = {
       ar: { subject: 'مرحباً بك في نشرة إيزيدي ميديا', intro: 'مرحباً بك في نشرة إيزيدي ميديا!', text: 'ستصلك الآن أحدث الأخبار والفيديوهات والصور مباشرة إلى بريدك الإلكتروني. يمكنك إلغاء الاشتراك في أي وقت بنقرة واحدة.', unsub: 'إلغاء الاشتراك من النشرة', dir: 'rtl' },
       ku: { subject: 'بهخێر هاتی بۆ بولتەنا جیڤاک تیڤی', intro: 'بهخێر هاتی بۆ بولتەنا جیڤاک تیڤی!', text: 'ئەڤە ژ ئەڤرێ پاشتر نووچە و ڤیدیۆ و وێنەیێن نوی دێ گەهینە ئیمەیلێ تە. هەر دەمێ کێ بڤێت دکەری ئابۆنە ژێ ببی.', unsub: 'ئابۆنە ژێ ببە', dir: 'rtl' },
-      en: { subject: 'Welcome to the Jivak TV newsletter', intro: 'Welcome to the Jivak TV newsletter!', text: 'You will now receive the latest news, videos and photos directly in your inbox. You can unsubscribe at any time with one click.', unsub: 'Unsubscribe from the newsletter', dir: 'ltr' },
-      de: { subject: 'Willkommen beim Jivak-TV-Newsletter', intro: 'Willkommen beim Jivak-TV-Newsletter!', text: 'Sie erhalten jetzt aktuelle Nachrichten, Videos und Fotos direkt per E-Mail. Sie können den Newsletter jederzeit mit einem Klick abbestellen.', unsub: 'Vom Newsletter abmelden', dir: 'ltr' }
+      en: { subject: 'Welcome to the ROJ TV newsletter', intro: 'Welcome to the ROJ TV newsletter!', text: 'You will now receive the latest news, videos and photos directly in your inbox. You can unsubscribe at any time with one click.', unsub: 'Unsubscribe from the newsletter', dir: 'ltr' },
+      de: { subject: 'Willkommen beim ROJ-TV-Newsletter', intro: 'Willkommen beim ROJ-TV-Newsletter!', text: 'Sie erhalten jetzt aktuelle Nachrichten, Videos und Fotos direkt per E-Mail. Sie können den Newsletter jederzeit mit einem Klick abbestellen.', unsub: 'Vom Newsletter abmelden', dir: 'ltr' }
     }
     const m = mails[lang] || mails.en
-    const html = `<!doctype html><html dir="${m.dir}" lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${m.subject}</title></head><body style="margin:0;padding:0;background:#f4f1ea;font-family:Arial,Helvetica,sans-serif"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;padding:28px 12px"><tr><td align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#fff;border-radius:12px;overflow:hidden"><tr><td style="background:#C0392B;padding:22px 28px"><span style="color:#fff;font-size:22px;font-weight:700">Jivak <span style="color:#ffd9d2">Media</span></span></td></tr><tr><td style="padding:28px 32px"><h1 style="margin:0 0 14px;font-size:20px;color:#1d1d1f">${m.intro}</h1><p style="margin:0 0 22px;font-size:15px;line-height:1.65;color:#444">${m.text}</p><a href="${unsubscribeUrl}" style="display:inline-block;background:#f6f1e8;border:1px solid #ddd;color:#777;border-radius:8px;padding:9px 16px;font-size:13px;text-decoration:none">${m.unsub}</a></td></tr></table></td></tr></table></body></html>`
+    const html = `<!doctype html><html dir="${m.dir}" lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${m.subject}</title></head><body style="margin:0;padding:0;background:#f4f1ea;font-family:Arial,Helvetica,sans-serif"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;padding:28px 12px"><tr><td align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#fff;border-radius:12px;overflow:hidden"><tr><td style="background:#C0392B;padding:22px 28px"><span style="color:#fff;font-size:22px;font-weight:700">ROJ <span style="color:#ffd9d2">Media</span></span></td></tr><tr><td style="padding:28px 32px"><h1 style="margin:0 0 14px;font-size:20px;color:#1d1d1f">${m.intro}</h1><p style="margin:0 0 22px;font-size:15px;line-height:1.65;color:#444">${m.text}</p><a href="${unsubscribeUrl}" style="display:inline-block;background:#f6f1e8;border:1px solid #ddd;color:#777;border-radius:8px;padding:9px 16px;font-size:13px;text-decoration:none">${m.unsub}</a></td></tr></table></td></tr></table></body></html>`
     const result = await sendBrevoEmail(email, m.subject, html)
     emailSent = result.ok
     if (!result.ok) console.error('newsletter welcome mail:', result.error)
@@ -184,7 +184,7 @@ async function handleUnsubscribe(req, res) {
   const page = (ok) => {
     const m = pages[lang] || pages.en
     const text = ok ? m.ok : m.bad
-    return `<!doctype html><html dir="${m.dir}" lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jivak TV</title></head><body style="margin:0;padding:0;background:#f4f1ea;font-family:Arial,Helvetica,sans-serif"><div style="max-width:520px;margin:60px auto;background:#fff;border-radius:12px;padding:32px;text-align:center"><span style="color:#C0392B;font-size:20px;font-weight:700">Jivak <span style="color:#a32c1f">Media</span></span><p style="margin:20px 0 0;font-size:16px;color:#333">${text}</p></div></body></html>`
+    return `<!doctype html><html dir="${m.dir}" lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ROJ TV</title></head><body style="margin:0;padding:0;background:#f4f1ea;font-family:Arial,Helvetica,sans-serif"><div style="max-width:520px;margin:60px auto;background:#fff;border-radius:12px;padding:32px;text-align:center"><span style="color:#C0392B;font-size:20px;font-weight:700">ROJ <span style="color:#a32c1f">Media</span></span><p style="margin:20px 0 0;font-size:16px;color:#333">${text}</p></div></body></html>`
   }
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
@@ -270,8 +270,8 @@ async function handleDigest(req, res) {
   const TEMPLATES = {
     ar: { subject: 'ايزيدي ميديا – {count} مقالات جديدة اليوم', header: 'ايزيدي ميديا', intro: 'ملخص اليوم: {count} مقالات جديدة', readMore: 'اقرأ المزيد', unsub: 'إلغاء الاشتراك من النشرة', dir: 'rtl' },
     ku: { subject: 'جیڤاک تیڤی – {count} دۆستنەی نوی ئەمڕۆ', header: 'جیڤاک تیڤی', intro: 'پۆلێنا ئەمڕۆ: {count} نووچەی نوی', readMore: 'بیشتر بخوانید', unsub: 'ئابۆنە ژێ ببە', dir: 'rtl' },
-    en: { subject: 'Jivak TV - {count} new articles today', header: 'Jivak TV', intro: 'Todays digest: {count} new articles', readMore: 'Read more', unsub: 'Unsubscribe from the newsletter', dir: 'ltr' },
-    de: { subject: 'Jivak TV – {count} neue Artikel heute', header: 'Jivak TV', intro: 'Tagesübersicht: {count} neue Artikel', readMore: 'Weiterlesen', unsub: 'Vom Newsletter abmelden', dir: 'ltr' }
+    en: { subject: 'ROJ TV - {count} new articles today', header: 'ROJ TV', intro: 'Todays digest: {count} new articles', readMore: 'Read more', unsub: 'Unsubscribe from the newsletter', dir: 'ltr' },
+    de: { subject: 'ROJ TV – {count} neue Artikel heute', header: 'ROJ TV', intro: 'Tagesübersicht: {count} neue Artikel', readMore: 'Weiterlesen', unsub: 'Vom Newsletter abmelden', dir: 'ltr' }
   }
 
   // Nach Sprache gruppieren

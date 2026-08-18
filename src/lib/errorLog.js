@@ -1,4 +1,4 @@
-// Zentrales Crash-/Fehler-Logging für Jivak TV (Debug-Build).
+// Zentrales Crash-/Fehler-Logging für ROJ TV (Debug-Build).
 // Erfasst auf echten Geräten:
 //   - alle Exceptions (window.onerror) mit Datei/Zeile/Spalte + Stacktrace
 //   - alle unhandled promise rejections

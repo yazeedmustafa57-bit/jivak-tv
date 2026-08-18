@@ -24,13 +24,13 @@ export default function Seo({ title, description, path = '/', image = '/logo.png
   const { lang } = useI18n()
 
   useEffect(() => {
-    const fullTitle = title ? `${title} – Jivak TV` : 'Jivak TV'
+    const fullTitle = title ? `${title} – ROJ TV` : 'ROJ TV'
     const ogImage = absoluteImageUrl(image)
     const langSuffix = lang ? `?lang=${lang}` : ''
     const pageUrl = SITE + path
 
     document.title = fullTitle
-    upsertMeta('name', 'description', description || 'Jivak TV – Nachrichten, Videos, Fotos und Live-TV aus der Jivak-Gemeinschaft.')
+    upsertMeta('name', 'description', description || 'ROJ TV – Nachrichten, Videos, Fotos und Live-TV aus der ROJ-Gemeinschaft.')
     upsertMeta('property', 'og:title', fullTitle)
     upsertMeta('property', 'og:description', description || '')
     upsertMeta('property', 'og:type', type)

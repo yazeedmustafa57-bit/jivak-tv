@@ -1,4 +1,4 @@
-# Admin-Zugang Jivak TV (dauerhaft)
+# Admin-Zugang ROJ TV (dauerhaft)
 
 > Diese Datei liegt nur im Projektordner – sie ist nicht öffentlich auf der Website.
 

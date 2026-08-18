@@ -1,4 +1,4 @@
-// Social-Preview (OpenGraph) für Jivak TV.
+// Social-Preview (OpenGraph) für ROJ TV.
 // Liefert eine minimalistische HTML-Seite mit den richtigen Meta-Tags, damit
 // WhatsApp, Facebook, Telegram, X usw. beim Teilen eines Artikels Titel,
 // Beschreibung und das echte Beitragsbild anzeigen – nicht das Logo.
@@ -51,7 +51,7 @@ function esc(value) {
 }
 
 function ogHtml({ title, description, image, url, type, lang }) {
-  const fullTitle = title ? `${title} – Jivak TV` : 'Jivak TV'
+  const fullTitle = title ? `${title} – ROJ TV` : 'ROJ TV'
   const safeTitle = esc(fullTitle)
   const safeDesc = esc(description || '')
   const safeImage = esc(image || `${SITE}/logo.png`)
@@ -63,7 +63,7 @@ function ogHtml({ title, description, image, url, type, lang }) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${safeTitle}</title>
     <meta name="description" content="${safeDesc}" />
-    <meta property="og:site_name" content="Jivak TV" />
+    <meta property="og:site_name" content="ROJ TV" />
     <meta property="og:type" content="${type === 'article' ? 'article' : 'website'}" />
     <meta property="og:title" content="${safeTitle}" />
     <meta property="og:description" content="${safeDesc}" />

@@ -50,7 +50,7 @@ export default function AdminLayout() {
         <aside className="admin-sidebar">
           <div className="admin-side-head">
             <Link className="brand" to="/admin">
-              <Icon name="sun" size={24} /> <span>Jivak <em>Media</em></span>
+              <Icon name="sun" size={24} /> <span>ROJ <em>Media</em></span>
             </Link>
             <div className="admin-side-tools">
               <ThemeToggle />
