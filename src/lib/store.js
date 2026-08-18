@@ -225,188 +225,7 @@ const daysAgo = (n) => Date.now() - n * 24 * 60 * 60 * 1000
 
 const DEFAULT_AUTHOR = 'Redaktion ROJ TV'
 
-const SEED_ARTICLES = [
-  {
-    id: 'demo-5',
-    title: 'تقرير مصوّر: حدث إخباري عام',
-    slug: 'تقرير-مصوّر-احتفال-المجتمع-المحلي',
-    categoryId: 'cat-kultur',
-    authorId: 'author-redaktion',
-    mediaType: 'video',
-    mediaUrl: 'https://www.youtube.com/watch?v=MMD8IPl6Htw',
-    status: 'published',
-    createdAt: daysAgo(4),
-    updatedAt: daysAgo(4),
-    intro: 'مشاهد حيّة من احتفال المجتمع المحلي: موسيقى ورقص ولقاءات – فيلم عن التلاحم أُنتج بالتعاون مع الجمعيات الثقافية المحلية.',
-    image: 'https://ylxvowivyyulmrdrtppj.supabase.co/storage/v1/object/public/jivak-tv/covers/yt-MMD8IPl6Htw.jpg', imageCredit: 'Video-Cover: YouTube',
-    image: null,
-    body: `في هذا التقرير المصوّر نرافق احتفالاً من احتفالات المجتمع المحلي، من أولى نغمات الطبل حتى الختام الجماعي في المساء.
-
-## ماذا تشاهدون
-
-- مشاهد من الموسيقى والرقص التقليدي
-- حوارات مع المنظّمين والمنظّمات
-- أصوات من المجتمع حول التراث والمستقبل
-
-> الصور المتحركة تروي قصصاً لا تستطيع الكلمات وحدها حملها.
-
-## التضمين
-
-لتشغيل الفيديو في هذه الصفحة، أضف رابطاً في لوحة الإدارة ضمن «التنسيق: فيديو» (تضمين يوتيوب أو ملف MP4 مباشر).`
-  },
-  {
-    id: 'demo-video-kurdi',
-    title: 'ڤیدیۆیا کورت: تاقیکرنا بەلاڤکرنا گشتی',
-    slug: 'vidyoya-kurt-wesana-gisti-t-ceribandin',
-    categoryId: 'cat-videos',
-    authorId: 'author-redaktion',
-    mediaType: 'video',
-    mediaUrl: 'https://www.youtube.com/watch?v=l3mSNTcfvqI',
-    status: 'published',
-    createdAt: daysAgo(1),
-    updatedAt: daysAgo(1),
-    intro: 'ئەڤ ڤیدیۆیا کورت ب وەسفەکا کوردی هاتیە بەلاڤکرن – تاقیکردنەکا دا پشتراست ببین کو بەلاڤکرنا ڤیدیۆیێن گشتی کار دکەت.',
-    image: 'https://ylxvowivyyulmrdrtppj.supabase.co/storage/v1/object/public/jivak-tv/covers/yt-l3mSNTcfvqI.jpg', imageCredit: 'Video-Cover: YouTube',
-    image: null,
-    body: 'ئەڤ ڤیدیۆیا کورت هاتیە زێدەکرن بۆ تاقیکرنا بەلاڤکرنا گشتی.\n\n## پوختە\n\n- ڤیدیۆیا کورت (MP4)\n- وەسف ب کوردی\n- بەلاڤکرنا گشتی\n\n> ڤیدیۆ ل سەر پەیجێ گشتی د ناڤ پلەیەرێ ناڤخۆیی دا کار دکەت.'
-  },  {
-    id: 'demo-6',
-    title: 'ألبوم صور: الحياة اليومية والثقافة في أرشيف إيزيدي ميديا',
-    slug: 'ألبوم-صور-الحياة-اليومية-والثقافة',
-    categoryId: 'cat-foto',
-    authorId: 'author-redaktion',
-    mediaType: 'photo',
-    mediaUrl: '',
-    status: 'published',
-    createdAt: daysAgo(9),
-    updatedAt: daysAgo(9),
-    intro: 'مختارات من صور مؤثّرة توثّق حياة المجتمع اليومية – مجمّعة في ألبوم مصوّر مع نصوص قصيرة.',
-    image: '/placeholder-article.jpg', imageCredit: 'Foto: Platzhalter', gallery: ['/placeholder-article.jpg', '/placeholder-article.jpg', '/placeholder-article.jpg', '/placeholder-article.jpg', '/placeholder-article.jpg', '/placeholder-article.jpg'],
-    image: null,
-    body: `الصور تحفظ ما يمرّ سريعاً: الوجوه، الأعياد، ولحظات الحياة اليومية. يجمع هذا الألبوم صوراً قدّمها أعضاء من المجتمع.
-
-## فصول الألبوم
-
-- وجوه من المجتمع
-- الأعياد والمناسبات
-- العمل والحِرف
-- النظرة إلى المستقبل
-
-> كل صورة وثيقة، وبداية لحكاية.
-
-هل تودّ المساهمة بصورك؟ تواصل معنا عبر الجمعيات الثقافية المحلية أو أضف مشاركات مصوّرة جديدة من لوحة الإدارة.`
-  },
-  {
-    id: 'demo-1',
-    title: 'ذكرى شنكال: إحياء الذكرى والتلاحم',
-    slug: 'ذكرى-شنكال-إحياء-الذكرى-والتلاحم',
-    categoryId: 'cat-region',
-    authorId: 'author-redaktion',
-    status: 'published',
-    createdAt: daysAgo(6),
-    updatedAt: daysAgo(6),
-    intro: 'يستذكر المجتمع المحلي في أنحاء العالم ذكرى أحداث شنكال. في المقدمة: الذكرى، التضامن، والوعد بإبقاء الذاكرة حيّة.',
-    image: '/placeholder-article.jpg', imageCredit: 'Foto: Platzhalter',
-    image: null,
-    body: `في ذكرى أحداث شنكال، يجتمع المحليون في مدن أوروبية كثيرة لإحياء الذكرى معاً. الشموع، دقائق الصمت، والقراءات تزيّن الفعاليات، وكذلك الأحاديث حول ما كان وما يجب أن يأتي.
-
-## يوم للذكرى
-
-الثالث من آب/أغسطس هو يوم حزن للمجتمع المحلي، ولكنه أيضاً يوم تأكّد من الذات. في المراسم تُكرَّم الضحايا، وتُوجَّه رسائل تضامن إلى عائلاتهم.
-
-- فعاليات ذكرى مشتركة في أكثر من عشرين مدينة
-- دقيقة صمت في منتصف النهار في جميع المراكز المجتمعية
-- حلقات نقاش مع ناجين ومختصين
-
-> الذاكرة ليست عبئاً، بل تكليف: من أجل مستقبل أطفالنا.
-
-## تلاحم يتجاوز الحدود
-
-تستغلّ منظمات إيزيدية كثيرة هذه الذكرى لتسليط الضوء على الأوضاع المستمرة في المنطقة وعرض مشاريع الدعم. وفي ألمانيا وفرنسا وهولندا أيضاً تتزايد الرغبة في تحمّل المسؤولية معاً.
-
-فعاليات هذا العام تحمل الشعار: «نتذكّر معاً – نعمل معاً». من يرغب بالمشاركة يجد مراكز تواصل في المجتمع أو لدى الجمعيات الثقافية المحلية.`
-  },
-  {
-    id: 'demo-2',
-    title: 'الحفاظ على الثقافة المحلية: اللغة والموسيقى والأعياد',
-    slug: 'الحفاظ-على-الثقافة-المحلية-اللغة-والموسيقى',
-    categoryId: 'cat-kultur',
-    authorId: 'author-redaktion',
-    status: 'published',
-    createdAt: daysAgo(12),
-    updatedAt: daysAgo(12),
-    intro: 'الكرمانجية والموسيقى والأعياد التقليدية هي جوهر الهوية المحلية. كيف تحافظ الجاليات في الشتات على إرثها الثقافي؟ نظرة شاملة.',
-    image: '/placeholder-article.jpg', imageCredit: 'Foto: Platzhalter',
-    image: null,
-    body: `الثقافة المحلية تنبض بالرواية الشفهية والموسيقى والأعياد. من يتحدّث لغتها يمرّر جزءاً من الهوية؛ كل حكاية وكل أغنية لبنة في الذاكرة الثقافية.
-
-## اللغة مفتاح
-
-الكرمانجية ليست لغة يومية فقط، بل حاملة للأدعية والروايات والحِكم. لذلك تنشأ في الشتات دورات لغة وعروض للأطفال تفتح باب الأمّ اللغوية بلعب ومرح.
-
-## الموسيقى والأعياد
-
-في الأعراس ورأس السنة والأعياد الدينية تتردّد الأغاني التقليدية بمرافقة الطبل والناي. موسيقيون شباب يدمجون هذه الأصوات بترتيبات حديثة، فيصلون بذلك إلى من نشأ بعيداً عن الوطن.
-
-> من يعرف أغانيه لا يخسر تاريخه.
-
-العمل الثقافي عمل جماعي: يحدث في قاعات الجمعيات وفي الأعياد العائلية، وبشكل متزايد في صيغ رقمية. وهنا تحديداً يأتي دور إيزيدي ميديا – منصة تُظهر هذه الأصوات.`
-  },
-  {
-    id: 'demo-3',
-    title: 'مبادرة تعليمية جديدة للشباب المحلي',
-    slug: 'مبادرة-تعليمية-جديدة-للشباب-المحلي',
-    categoryId: 'cat-bildung',
-    status: 'published',
-    createdAt: daysAgo(20),
-    updatedAt: daysAgo(20),
-    authorId: 'author-redaktion',
-    author: DEFAULT_AUTHOR,
-    views: 720,
-    recommended: true,
-    intro: 'دروس تقوية وإرشاد وتوجيه مهني: برنامج جديد يريد مرافقة الشباب المحلي في مسارهم التعليمي وفتح آفاق أمامهم.',
-    image: '/placeholder-article.jpg', imageCredit: 'Foto: Platzhalter',
-    image: null,
-    body: `مبادرة تعليمية جديدة تريد دعم الشباب المحلي بشكل ملموس – من المدرسة إلى التدريب المهني حتى الجامعة. مرشدون ومرشدات متطوعون يرافقون المشاركين على مدى عدة أشهر.
-
-## ماذا يقدّم البرنامج
-
-- مرافقة تعليمية أسبوعية في مجموعات صغيرة
-- إرشاد من طلاب ومختصين
-- ورش حول التقديم والتوجيه المهني
-- استشارات منح ومرافقة في التقديم
-
-## لماذا التعليم يصنع المستقبل
-
-التعليم أقوى رافعة للمشاركة. من يحقّق نتائج جيدة ويطوّر آفاقه الخاصة يساهم بنشاط في صياغة مستقبل المجتمع. تنطلق المبادرة أولاً في ثلاث مدن، ومن المقرر توسيعها عند نجاحها.
-
-يمكن للعائلات المهتمة التسجيل عبر الجمعيات الثقافية المحلية. المشاركة مجانية.`
-  },
-  {
-    id: 'demo-4',
-    title: 'من الداخل: ريبورتاج من المجتمع',
-    slug: 'ريبورتاج-من-المجتمع',
-    categoryId: 'cat-diaspora',
-    status: 'draft',
-    createdAt: daysAgo(2),
-    updatedAt: daysAgo(1),
-    authorId: 'author-redaktion',
-    author: DEFAULT_AUTHOR,
-    views: 0,
-    recommended: false,
-    intro: 'ريبورتاج عن الحياة اليومية في المجتمع المحلي – كيف يجتمع الناس ويساعدون ويكونون حاضرين لبعضهم. ما زال قيد الإعداد.',
-    image: null,
-    body: `هذا الريبورتاج قيد الإعداد حالياً. يرافق العائلات والجمعيات والأفراد الذين يحملون الحياة المجتمعية.
-
-## فصول مخططة
-
-- يوم في المركز المجتمعي
-- حوارات مع المتطوعين
-- النظرة إلى المستقبل
-
-تتبّع انطباعات أخرى قريباً.`
-  }
-]
+const SEED_ARTICLES = []  // Demo-Artikel entfernt
 
 
 // ---------- Artikel ----------
@@ -799,17 +618,10 @@ const SEED_AUTHORS = [
   }
 ]
 
-export const EXAMPLE_MEDIA_URL = '/videos/jivak-beispiel.mp4'
+export const EXAMPLE_MEDIA_URL = ''
 
 function exampleMediaItem() {
-  return {
-    id: 'media-beispiel-video',
-    type: 'video',
-    name: 'ROJ TV Beispiel-Video (MP4)',
-    url: EXAMPLE_MEDIA_URL,
-    tag: 'Beispiel, MP4',
-    createdAt: Date.now()
-  }
+  return null
 }
 
 function ensureSeed() {
@@ -823,7 +635,7 @@ function ensureSeed() {
     write(KEYS.authors, SEED_AUTHORS)
   }
   if (!localStorage.getItem(KEYS.media)) {
-    write(KEYS.media, [exampleMediaItem()])
+    write(KEYS.media, [])
   }
   if (!localStorage.getItem(KEYS.stats)) {
     write(KEYS.stats, { pageViews: [], visits: [], byArticle: {} })
@@ -958,15 +770,9 @@ export function getTopPages(limit = 5) {
 
 // ---------- Medienbibliothek ----------
 
-/** Fügt das Beispiel-Video hinzu, falls es noch nicht in der Bibliothek liegt. */
+/** Kein Beispiel-Video – Demo-Daten wurden entfernt. */
 export function ensureExampleMedia() {
-  const items = getMediaItems()
-  const existing = items.find((m) => m.url === EXAMPLE_MEDIA_URL)
-  if (existing) return { added: false, item: existing }
-  const item = exampleMediaItem()
-  items.unshift(item)
-  write(KEYS.media, items)
-  return { added: true, item }
+  return { added: false, item: null }
 }
 
 export function getMediaItems() {
