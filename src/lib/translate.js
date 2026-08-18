@@ -60,6 +60,8 @@ export function detectArticleLang(text) {
   if (/[ێڕۆۊڤچپژگڵە]/.test(s)) return 'ku'
   if (isArabicScript(s)) return 'ar'
   if (/[äöüßÄÖÜ]/.test(s)) return 'de'
+  // Deutsche Wörter auch ohne Umlaute erkennen (erweiterte Liste)
+  if (/\b(der|die|das|den|dem|des|ein|eine|einem|einen|einer|und|ist|sind|war|waren|hat|haben|wird|werden|kann|können|soll|sollen|muss|müssen|nicht|auf|aus|bei|bis|durch|für|gegen|in|mit|nach|ohne|über|unter|von|vor|zu|zum|zur|zwischen|auch|als|noch|wie|oder|aber|sondern|denn|weil|wenn|ob|dass|sich|man|er|sie|es|wir|ihr|ich|du|da|dort|hier|so|sehr|nun|schon|wieder|mehr|alle|alles|kein|keine|diese|dieser|dieses|jene|welcher|welche|nur|gerade|eben|etwa|vielleicht|bestimmt|sicher|wirklich|bereits|immer|nie|oft|manchmal|bald|jetzt|heute|gestern|morgen|gut|schlecht|neu|alt|groß|klein|lang|kurz|hoch|tief|weit|nah|stark|richtig|falsch|wichtig|einfach|möglich|fertig|bereit|frei|offen|politik|nachrichten|nachricht|region|wirtschaft|kultur|sport|bildung|gesundheit|wissenschaft|technik|umwelt|klima|energie|verkehr|justiz|innenpolitik|außenpolitik|gesellschaft|geschichte|religion|tradition|identität|gemeinschaft|familie|kinder|jugend|senioren|frauen|menschen|flüchtlinge|integration|migration|diaspora|heimat)\b/i.test(s)) return 'de'
   return 'en'
 }
 
