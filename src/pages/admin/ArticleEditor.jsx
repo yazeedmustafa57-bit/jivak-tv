@@ -576,6 +576,19 @@ export default function ArticleEditor() {
       try {
         const data = await fetchTranslation(lang.code)
         if (data.kind === 'missing') throw new Error('missing')
+        // Übersetzung in der Datenbank speichern, damit die öffentliche Seite sie findet
+        try {
+          await cloudSaveTranslation({
+            articleId: saved.id,
+            lang: lang.code,
+            title: data.title || '',
+            intro: data.intro || '',
+            body: data.body || '',
+            kind: 'auto',
+            sourceLang: srcLang,
+            sourceHash: savedHash
+          })
+        } catch { /* Speicherfehler ist nicht kritisch – Cache existiert bereits */ }
         setTrProgress((p) => ({ ...p, statuses: { ...p.statuses, [lang.code]: 'done' } }))
       } catch (err) {
         console.error(`[translate] ${lang.code} fehlgeschlagen:`, err)

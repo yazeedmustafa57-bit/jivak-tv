@@ -9,8 +9,7 @@ import { shouldAskServer, getCachedArticleTranslation, sourceHash, translateArti
  *   2. Gespeicherte automatische Übersetzung (Server-Cache)
  *   3. Neue serverseitige Übersetzung
  *   4. Originalsprache als Fallback
- * Kurdisch (Badini) wird NIE maschinell übersetzt – der Server liefert dort
- * nur manuelle Übersetzungen aus.
+ * ALLE Sprachen (inkl. Kurdisch/Badini) werden automatisch übersetzt.
  */
 export function useArticleL10n(article, options = {}) {
   const withBody = Boolean(options.withBody)
@@ -21,7 +20,7 @@ export function useArticleL10n(article, options = {}) {
   const hasStored = Boolean(article && stored !== article)
   const id = article?.id
   const cached = id && !hasStored ? getCachedArticleTranslation(id, lang) : null
-  const cacheHit = Boolean(cached && article && cached.h === sourceHash(article) && cached.title)
+  const cacheHit = Boolean(cached && article && cached.h === sourceHash(article) && cached.title && cached.kind !== 'missing')
   // Nur den Server fragen, wenn kein gültiger Cache-Eintrag existiert.
   // Bei withBody=true zählt ein Cache-Eintrag OHNE body nicht als Treffer,
   // sonst bliebe der Artikelkörper in der Originalsprache.
@@ -33,12 +32,15 @@ export function useArticleL10n(article, options = {}) {
 
   useEffect(() => {
     if (!ask) {
-      setAuto(null)
+      if (!auto) setAuto(null)
       return undefined
     }
     let alive = true
+    console.log('[l10n] Requesting translation for', lang, 'article:', article?.id?.slice(0,8), 'withBody:', withBody)
     translateArticle(article, lang, { withBody }).then((res) => {
-      if (!alive || !res) return
+      if (!alive || !res) { console.log('[l10n] Result discarded (alive=' + alive + ', res=' + !!res + ')'); return }
+      if (res.kind === 'missing') { console.log('[l10n] Skipping missing translation for', lang); return }
+      console.log('[l10n] Got translation:', res.title?.slice(0,40), 'kind:', res.kind)
       setAuto({
         title: res.title ?? article.title,
         intro: res.intro ?? article.intro,

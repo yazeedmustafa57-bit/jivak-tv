@@ -5,7 +5,7 @@
 
 const CACHE_KEY = 'em.article-translations.v2'
 const ALL_LANGS = new Set(['ar', 'ku', 'en', 'de'])
-const REQUEST_TIMEOUT = 45000
+const REQUEST_TIMEOUT = 90000
 
 // AbortSignal.timeout ist in älteren Handy-Browsern nicht verfügbar –
 // Fallback, damit die Übersetzungs-Anfrage dort nicht abstürzt.
@@ -111,7 +111,7 @@ export function cacheArticleTranslation(id, lang, entry) {
 export function localizedArticleSync(article, lang) {
   if (!article || !lang) return article
   const cached = getCachedArticleTranslation(article.id, lang)
-  if (cached && cached.h === sourceHash(article) && cached.title) {
+  if (cached && cached.h === sourceHash(article) && cached.title && cached.kind !== 'missing') {
     return {
       ...article,
       title: cached.title,
@@ -136,6 +136,7 @@ function flushBatch() {
   const items = batchItems
   batchItems = []
   if (items.length === 0) return
+  console.log('[translate] flushBatch:', items.length, 'items, langs:', [...new Set(items.map(i => i.lang))])
 
   // Nach Zielsprache gruppieren -> 1 Request pro Sprache
   const byLang = {}
@@ -163,10 +164,11 @@ function flushBatch() {
         signal: timeoutSignal(REQUEST_TIMEOUT)
       })
       const json = res.ok ? await res.json() : null
-      if (!json?.ok || !json.data) throw new Error('batch-failed')
+      console.log('[translate] Response for', lang + ':', json?.ok, 'articles:', json?.data ? Object.keys(json.data).length : 0)
+      if (!json?.ok || !json.data) throw new Error('batch-failed: ' + JSON.stringify(json))
       group.forEach((it) => {
         const data = json.data[it.articleId]
-        if (data && data.title) {
+        if (data && data.title && data.kind !== 'missing') {
           cacheArticleTranslation(it.articleId, lang, {
             h: sourceHash({ title: it.title, intro: it.intro, body: it.body }),
             title: data.title,
@@ -179,7 +181,7 @@ function flushBatch() {
       })
     } catch (err) {
       // Übersetzungsfehler: Originaltext bleibt sichtbar, Seite läuft weiter.
-      console.warn('[translate] Batch fehlgeschlagen (' + lang + '):', err?.message || err)
+      console.error('[translate] ❌ Batch fehlgeschlagen (' + lang + '):', err?.message || err, err)
       group.forEach((it) => it.resolve(null))
     }
   })
@@ -195,7 +197,7 @@ export function translateArticle(article, lang, opts = {}) {
   const h = sourceHash(article)
   const cached = getCachedArticleTranslation(id, lang)
   const bodyOk = !opts.withBody || Boolean(cached?.body)
-  if (cached && cached.h === h && cached.title && bodyOk) {
+  if (cached && cached.h === h && cached.title && cached.kind !== 'missing' && bodyOk) {
     return Promise.resolve({
       title: cached.title,
       intro: cached.intro,
