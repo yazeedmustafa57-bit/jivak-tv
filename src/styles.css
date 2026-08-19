@@ -472,7 +472,7 @@ a.pill { border: 1px solid transparent; }
   white-space: nowrap;
   will-change: transform;
   /* LTR (Englisch/Deutsch): Inhalt läuft von rechts nach links (wie NRT EN) */
-  animation: tickerLtr 55s linear infinite;
+  animation: tickerLtr 40s linear infinite;
 }
 .news-ticker.is-rtl .ticker-track {
   /* RTL (Arabisch/Kurdisch): Inhalt läuft von links nach rechts (wie NRT KU/AR) */
