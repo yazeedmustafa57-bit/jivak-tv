@@ -45,7 +45,9 @@ function rateLimited(req) {
   return rec.count > RATE_MAX
 }
 
-/** Nur echte, veröffentlichte Artikel dürfen in article_translations gespeichert werden. */
+/** Artikel aus der DB laden. Cache ist erlaubt für published UND draft
+ *  (während des Publish-Flows wird zuerst als draft gespeichert, dann
+ *  übersetzt, dann auf published gesetzt). */
 async function resolveArticleSource(supabase, item) {
   try {
     const { data, error } = await supabase
@@ -56,7 +58,7 @@ async function resolveArticleSource(supabase, item) {
     if (
       !error &&
       data &&
-      data.status === 'published' &&
+      (data.status === 'published' || data.status === 'draft') &&
       String(data.title || '').trim() === String(item.title || '').trim()
     ) {
       return {

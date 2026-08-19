@@ -499,8 +499,11 @@ export default function ArticleEditor() {
     setSaving(true)
     setTrProgress({ phase: 'saving', statuses, langs: targetLangs, failedCount: 0 })
 
-    // 1) Artikel IMMER zuerst speichern – nie verlieren, auch wenn die
-    //    Übersetzung fehlschlägt.
+    // 1) Artikel zuerst als DRAFT speichern – Übersetzungen müssen
+    //    existieren, BEVOR der Artikel öffentlich wird.
+    const targetStatus = payload.status
+    const wasPublishing = targetStatus === 'published'
+    if (wasPublishing) payload.status = 'draft'
     let saved
     try {
       saved = await saveArticle(payload)
@@ -612,6 +615,22 @@ export default function ArticleEditor() {
           }))
         } catch { /* Markierung ist optional */ }
       }
+    }
+
+    // 3) Nach Übersetzungen: Status auf Zielstatus setzen (z.B. published)
+    if (wasPublishing && saved && failedCount === 0) {
+      try {
+        payload.status = 'published'
+        saved = await saveArticle(payload)
+      } catch (err) {
+        console.error('[publish] Status-Update fehlgeschlagen:', err)
+      }
+    } else if (wasPublishing && saved) {
+      // Bei Übersetzungsfehlern: Draft belassen, aber Hinweis zeigen
+      payload.status = 'draft'
+      try {
+        await saveArticle(payload)
+      } catch { /* ignore */ }
     }
 
     setTrProgress((p) => ({ ...p, phase: 'done', failedCount }))
