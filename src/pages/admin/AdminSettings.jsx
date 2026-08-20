@@ -23,7 +23,9 @@ export default function AdminSettings() {
     title: settings.liveTv.title || '',
     programs: Array.isArray(settings.liveTv.programs)
       ? settings.liveTv.programs.map((p) => ({ time: p.time || '', title: p.title || '' }))
-      : []
+      : [],
+    youtubeStreamKey: settings.liveTv.youtubeStreamKey || '',
+    youtubeHlsUrl: settings.liveTv.youtubeHlsUrl || ''
   })
   const [liveSaved, setLiveSaved] = useState(false)
   const [liveError, setLiveError] = useState('')
@@ -177,7 +179,9 @@ export default function AdminSettings() {
       streamUrl: liveTv.streamUrl.trim(),
       poster: liveTv.poster,
       title: liveTv.title.trim(),
-      programs: liveTv.programs.filter((p) => p.time && p.title)
+      programs: liveTv.programs.filter((p) => p.time && p.title),
+      youtubeStreamKey: liveTv.youtubeStreamKey,
+      youtubeHlsUrl: liveTv.youtubeHlsUrl.trim()
     }
     saveSettings({ liveTv: livePayload })
     setLiveSaved(true)
@@ -471,6 +475,34 @@ export default function AdminSettings() {
                   onChange={(e) => onLiveChange('streamUrl', e.target.value)}
                   placeholder={t('set.liveTvUrlHint')}
                 />
+              </div>
+              <div className="field" style={{ marginBottom: 14, background: '#111', borderRadius: 8, padding: 14, border: '1px solid #333' }}>
+                <label style={{ color: '#E8B84B', fontWeight: 700, fontSize: 13, display: 'block', marginBottom: 8 }}>
+                  📺 YouTube Live Streaming
+                </label>
+                <label htmlFor="live-yt-key" style={{ fontSize: 12, color: '#888' }}>Stream Key (aus YouTube Studio)</label>
+                <input
+                  id="live-yt-key"
+                  className="input"
+                  dir="ltr"
+                  type="password"
+                  value={liveTv.youtubeStreamKey}
+                  onChange={(e) => onLiveChange('youtubeStreamKey', e.target.value)}
+                  placeholder="xxxx-xxxx-xxxx-xxxx-xxxx"
+                  style={{ marginBottom: 10 }}
+                />
+                <label htmlFor="live-yt-hls" style={{ fontSize: 12, color: '#888' }}>YouTube HLS URL (für Zuschauer)</label>
+                <input
+                  id="live-yt-hls"
+                  className="input"
+                  dir="ltr"
+                  value={liveTv.youtubeHlsUrl}
+                  onChange={(e) => onLiveChange('youtubeHlsUrl', e.target.value)}
+                  placeholder="https://manifest.googlevideo.com/api/manifest/hls_playlist/..."
+                />
+                <p style={{ color: '#666', fontSize: 11, margin: '6px 0 0' }}>
+                  RTMP URL: <code style={{ color: '#E8B84B' }}>rtmp://a.rtmp.youtube.com/live2</code>
+                </p>
               </div>
               <div className="field" style={{ marginBottom: 14 }}>
                 <label htmlFor="live-poster">{t('set.liveTvPoster')}</label>

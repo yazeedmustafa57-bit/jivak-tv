@@ -519,7 +519,7 @@ export function logout() {
 // ---------- Einstellungen (u. a. Eilmeldung) ----------
 
 const DEFAULT_SETTINGS = {
-  liveTv: { enabled: false, streamUrl: '', poster: '', title: '', programs: [] },
+  liveTv: { enabled: false, streamUrl: '', poster: '', title: '', programs: [], youtubeStreamKey: '', youtubeHlsUrl: '' },
   ticker: { items: [], autoArticles: true, excludeArticleIds: [] }
 }
 

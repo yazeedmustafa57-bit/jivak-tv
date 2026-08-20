@@ -1,16 +1,10 @@
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import Hls from 'hls.js'
 import { useI18n } from '../lib/i18n.jsx'
 import { useStoreVersion } from '../lib/useStore.js'
 import { useLiveTvL10n } from '../lib/useLiveTvL10n.jsx'
 import { getLiveTv } from '../lib/store.js'
 import Seo from '../components/Seo.jsx'
-import { supabase } from '../lib/supabase.js'
-
-const CHANNEL_NAME = 'roj-live-webrtc'
-const ICE_SERVERS = [
-  { urls: 'stun:stun.l.google.com:19302' },
-  { urls: 'stun:stun1.l.google.com:19302' }
-]
 
 function currentProgram(programs, now) {
   const minutes = now.getHours() * 60 + now.getMinutes()
@@ -35,162 +29,87 @@ export default function LiveTv() {
 
   const [isLive, setIsLive] = useState(false)
   const [viewerMsg, setViewerMsg] = useState('Warte auf Livestream…')
-  const [peerState, setPeerState] = useState('idle')
   const videoRef = useRef(null)
-  const channelRef = useRef(null)
-  const pcRef = useRef(null)
-  const viewerIdRef = useRef('viewer-' + Math.random().toString(36).slice(2, 10))
+  const hlsRef = useRef(null)
+  const pollRef = useRef(null)
 
-  // ─── WebRTC Viewer: Verbindung zum Admin herstellen ───
-  const connectToAdmin = useCallback(() => {
-    if (!supabase) {
-      setViewerMsg('Supabase nicht konfiguriert')
-      return
+  const hlsUrl = live.youtubeHlsUrl || ''
+  const enabled = Boolean(live.enabled && hlsUrl)
+
+  // ─── HLS-Player starten ───
+  const startPlayer = () => {
+    if (!hlsUrl || !videoRef.current) return
+    const video = videoRef.current
+
+    // Alten Player zerstören
+    if (hlsRef.current) {
+      try { hlsRef.current.destroy() } catch {}
+      hlsRef.current = null
     }
 
-    // Alten Channel schließen
-    if (channelRef.current) {
-      try { supabase.removeChannel(channelRef.current) } catch {}
-      channelRef.current = null
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        liveDurationInfinity: true,
+        liveBackBufferLength: 0,
+        liveMaxLatencyDurationCount: 8,
+        enableWorker: true,
+        lowLatencyMode: true,
+        maxBufferLength: 10,
+        maxMaxBufferLength: 15,
+        startFragPrefetch: true,
+        backBufferLength: 0,
+        maxBufferSize: 10 * 1024 * 1024,
+      })
+      hlsRef.current = hls
+
+      hls.loadSource(hlsUrl)
+      hls.attachMedia(video)
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        setIsLive(true)
+        setViewerMsg('')
+        video.play().catch(() => {})
+      })
+
+      hls.on(Hls.Events.ERROR, (_, data) => {
+        if (!data.fatal) return
+        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+          setIsLive(false)
+          setViewerMsg('Stream vorübergehend nicht verfügbar – wird automatisch wieder verbunden…')
+          hls.startLoad()
+        } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+          hls.recoverMediaError()
+        } else {
+          setIsLive(false)
+          setViewerMsg('Player-Fehler – Verbindung wird neu aufgebaut…')
+          try { hls.destroy() } catch {}
+          hlsRef.current = null
+          setTimeout(startPlayer, 3000)
+        }
+      })
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari nativ
+      video.src = hlsUrl
+      video.addEventListener('loadedmetadata', () => { setIsLive(true); video.play().catch(() => {}) })
+      video.addEventListener('error', () => setIsLive(false))
     }
+  }
 
-    const viewerId = viewerIdRef.current
-    const channel = supabase.channel(CHANNEL_NAME, {
-      config: { broadcast: { self: false } }
-    })
-    channelRef.current = channel
-
-    // Admin-Offer empfangen
-    channel.on('broadcast', { event: 'admin-offer' }, async ({ payload }) => {
-      if (payload.viewerId !== viewerId) return
-
-      try {
-        setPeerState('connecting')
-        setViewerMsg('Verbindung wird aufgebaut…')
-
-        // Alten Peer schließen
-        if (pcRef.current) {
-          try { pcRef.current.close() } catch {}
-          pcRef.current = null
-        }
-
-        const pc = new RTCPeerConnection({ iceServers: ICE_SERVERS })
-
-        // Video/Audio vom Admin empfangen
-        pc.ontrack = (e) => {
-          console.log('[Viewer] Got track:', e.track.kind)
-          if (videoRef.current) {
-            videoRef.current.srcObject = e.streams[0]
-            videoRef.current.play().catch(() => {})
-          }
-          setIsLive(true)
-          setViewerMsg('')
-          setPeerState('connected')
-        }
-
-        // ICE Candidates an Admin senden
-        pc.onicecandidate = (e) => {
-          if (e.candidate) {
-            channel.send({
-              type: 'broadcast',
-              event: 'viewer-ice',
-              payload: { viewerId, candidate: e.candidate.toJSON() }
-            })
-          }
-        }
-
-        pc.onconnectionstatechange = () => {
-          console.log('[Viewer] Connection state:', pc.connectionState)
-          if (pc.connectionState === 'connected') {
-            setPeerState('connected')
-            setIsLive(true)
-          } else if (pc.connectionState === 'failed' || pc.connectionState === 'closed') {
-            setPeerState('idle')
-            setIsLive(false)
-            setViewerMsg('Verbindung verloren – versuche erneut…')
-            // Auto-Reconnect nach 3 Sekunden
-            setTimeout(connectToAdmin, 3000)
-          }
-        }
-
-        pc.oniceconnectionstatechange = () => {
-          console.log('[Viewer] ICE state:', pc.iceConnectionState)
-        }
-
-        pcRef.current = pc
-
-        // Offer vom Admin setzen
-        await pc.setRemoteDescription(new RTCSessionDescription(payload.sdp))
-
-        // Answer erstellen und senden
-        const answer = await pc.createAnswer()
-        await pc.setLocalDescription(answer)
-
-        channel.send({
-          type: 'broadcast',
-          event: 'viewer-answer',
-          payload: { viewerId, sdp: pc.localDescription.toJSON() }
-        })
-      } catch (e) {
-        console.error('[Viewer] Failed to handle offer:', e)
-        setViewerMsg('Verbindungsfehler')
-        setPeerState('error')
-      }
-    })
-
-    // ICE Candidates vom Admin empfangen
-    channel.on('broadcast', { event: 'admin-ice' }, async ({ payload }) => {
-      if (payload.viewerId !== viewerId) return
-      const pc = pcRef.current
-      if (!pc || !payload.candidate) return
-      try {
-        await pc.addIceCandidate(new RTCIceCandidate(payload.candidate))
-      } catch (e) {
-        console.error('[Viewer] Failed to add ICE:', e)
-      }
-    })
-
-    // Channel subscriben
-    channel.subscribe((status) => {
-      console.log('[Viewer] Channel status:', status)
-      if (status === 'SUBSCRIBED') {
-        // Admin mitteilen, dass ein Viewer da ist
-        channel.send({
-          type: 'broadcast',
-          event: 'viewer-join',
-          payload: { viewerId }
-        })
-        setViewerMsg('Verbinde mit Sender…')
-      } else if (status === 'CHANNEL_ERROR') {
-        setViewerMsg('Verbindungsfehler')
-        setPeerState('error')
-      }
-    })
-  }, [])
-
-  // ─── Cleanup bei Unmount ───
+  // ─── Initiales Setup ───
   useEffect(() => {
-    connectToAdmin()
-
-    return () => {
-      // Viewer-Leave signalisieren
-      if (channelRef.current) {
-        try {
-          channelRef.current.send({
-            type: 'broadcast',
-            event: 'viewer-leave',
-            payload: { viewerId: viewerIdRef.current }
-          })
-        } catch {}
-        try { supabase.removeChannel(channelRef.current) } catch {}
-        channelRef.current = null
-      }
-      if (pcRef.current) {
-        try { pcRef.current.close() } catch {}
-        pcRef.current = null
-      }
+    if (enabled) {
+      setViewerMsg('Verbinde mit Livestream…')
+      startPlayer()
+      // Polling: HLS-Manifest alle 5s prüfen
+      pollRef.current = setInterval(() => {
+        if (!hlsRef.current && enabled) startPlayer()
+      }, 5000)
     }
-  }, [connectToAdmin])
+    return () => {
+      if (hlsRef.current) { try { hlsRef.current.destroy() } catch {} hlsRef.current = null }
+      if (pollRef.current) clearInterval(pollRef.current)
+    }
+  }, [enabled, hlsUrl])
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60 * 1000)
@@ -199,7 +118,7 @@ export default function LiveTv() {
 
   const programs = [...(live.programs || [])].sort((a, b) => String(a.time || '').localeCompare(String(b.time || '')))
   const current = currentProgram(programs, now)
-  const showLive = live.enabled || isLive
+  const showLive = enabled || isLive
   const timeStr = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })
 
   return (
