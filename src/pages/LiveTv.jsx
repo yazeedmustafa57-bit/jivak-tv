@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react'
-import { getLiveTv } from '../lib/store.js'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { useI18n } from '../lib/i18n.jsx'
 import { useStoreVersion } from '../lib/useStore.js'
 import { useLiveTvL10n } from '../lib/useLiveTvL10n.jsx'
+import { getLiveTv } from '../lib/store.js'
 import Seo from '../components/Seo.jsx'
-import VideoPlayer from '../components/VideoPlayer.jsx'
+import { supabase } from '../lib/supabase.js'
+
+const CHANNEL_NAME = 'roj-live-webrtc'
+const ICE_SERVERS = [
+  { urls: 'stun:stun.l.google.com:19302' },
+  { urls: 'stun:stun1.l.google.com:19302' }
+]
 
 function currentProgram(programs, now) {
   const minutes = now.getHours() * 60 + now.getMinutes()
@@ -13,8 +19,7 @@ function currentProgram(programs, now) {
     const [h, m] = String(p.time || '').split(':').map(Number)
     if (Number.isNaN(h) || Number.isNaN(m)) continue
     const start = h * 60 + m
-    const end = start + 90
-    if (minutes >= start && minutes < end) return p
+    if (minutes >= start && minutes < start + 90) return p
   }
   return null
 }
@@ -25,11 +30,168 @@ export default function LiveTv() {
   const [now, setNow] = useState(() => new Date())
   const live = getLiveTv()
   const tr = useLiveTvL10n(live)
-  const enabled = Boolean(live.enabled && live.streamUrl)
   const liveTitle = tr('live:title', live.title)
-  const channelName = liveTitle || t('liveTv.title')
+  const channelName = liveTitle || 'ROJ TV'
 
-  // "Jetzt live"-Anzeige aktualisiert sich jede Minute
+  const [isLive, setIsLive] = useState(false)
+  const [viewerMsg, setViewerMsg] = useState('Warte auf Livestream…')
+  const [peerState, setPeerState] = useState('idle')
+  const videoRef = useRef(null)
+  const channelRef = useRef(null)
+  const pcRef = useRef(null)
+  const viewerIdRef = useRef('viewer-' + Math.random().toString(36).slice(2, 10))
+
+  // ─── WebRTC Viewer: Verbindung zum Admin herstellen ───
+  const connectToAdmin = useCallback(() => {
+    if (!supabase) {
+      setViewerMsg('Supabase nicht konfiguriert')
+      return
+    }
+
+    // Alten Channel schließen
+    if (channelRef.current) {
+      try { supabase.removeChannel(channelRef.current) } catch {}
+      channelRef.current = null
+    }
+
+    const viewerId = viewerIdRef.current
+    const channel = supabase.channel(CHANNEL_NAME, {
+      config: { broadcast: { self: false } }
+    })
+    channelRef.current = channel
+
+    // Admin-Offer empfangen
+    channel.on('broadcast', { event: 'admin-offer' }, async ({ payload }) => {
+      if (payload.viewerId !== viewerId) return
+
+      try {
+        setPeerState('connecting')
+        setViewerMsg('Verbindung wird aufgebaut…')
+
+        // Alten Peer schließen
+        if (pcRef.current) {
+          try { pcRef.current.close() } catch {}
+          pcRef.current = null
+        }
+
+        const pc = new RTCPeerConnection({ iceServers: ICE_SERVERS })
+
+        // Video/Audio vom Admin empfangen
+        pc.ontrack = (e) => {
+          console.log('[Viewer] Got track:', e.track.kind)
+          if (videoRef.current) {
+            videoRef.current.srcObject = e.streams[0]
+            videoRef.current.play().catch(() => {})
+          }
+          setIsLive(true)
+          setViewerMsg('')
+          setPeerState('connected')
+        }
+
+        // ICE Candidates an Admin senden
+        pc.onicecandidate = (e) => {
+          if (e.candidate) {
+            channel.send({
+              type: 'broadcast',
+              event: 'viewer-ice',
+              payload: { viewerId, candidate: e.candidate.toJSON() }
+            })
+          }
+        }
+
+        pc.onconnectionstatechange = () => {
+          console.log('[Viewer] Connection state:', pc.connectionState)
+          if (pc.connectionState === 'connected') {
+            setPeerState('connected')
+            setIsLive(true)
+          } else if (pc.connectionState === 'failed' || pc.connectionState === 'closed') {
+            setPeerState('idle')
+            setIsLive(false)
+            setViewerMsg('Verbindung verloren – versuche erneut…')
+            // Auto-Reconnect nach 3 Sekunden
+            setTimeout(connectToAdmin, 3000)
+          }
+        }
+
+        pc.oniceconnectionstatechange = () => {
+          console.log('[Viewer] ICE state:', pc.iceConnectionState)
+        }
+
+        pcRef.current = pc
+
+        // Offer vom Admin setzen
+        await pc.setRemoteDescription(new RTCSessionDescription(payload.sdp))
+
+        // Answer erstellen und senden
+        const answer = await pc.createAnswer()
+        await pc.setLocalDescription(answer)
+
+        channel.send({
+          type: 'broadcast',
+          event: 'viewer-answer',
+          payload: { viewerId, sdp: pc.localDescription.toJSON() }
+        })
+      } catch (e) {
+        console.error('[Viewer] Failed to handle offer:', e)
+        setViewerMsg('Verbindungsfehler')
+        setPeerState('error')
+      }
+    })
+
+    // ICE Candidates vom Admin empfangen
+    channel.on('broadcast', { event: 'admin-ice' }, async ({ payload }) => {
+      if (payload.viewerId !== viewerId) return
+      const pc = pcRef.current
+      if (!pc || !payload.candidate) return
+      try {
+        await pc.addIceCandidate(new RTCIceCandidate(payload.candidate))
+      } catch (e) {
+        console.error('[Viewer] Failed to add ICE:', e)
+      }
+    })
+
+    // Channel subscriben
+    channel.subscribe((status) => {
+      console.log('[Viewer] Channel status:', status)
+      if (status === 'SUBSCRIBED') {
+        // Admin mitteilen, dass ein Viewer da ist
+        channel.send({
+          type: 'broadcast',
+          event: 'viewer-join',
+          payload: { viewerId }
+        })
+        setViewerMsg('Verbinde mit Sender…')
+      } else if (status === 'CHANNEL_ERROR') {
+        setViewerMsg('Verbindungsfehler')
+        setPeerState('error')
+      }
+    })
+  }, [])
+
+  // ─── Cleanup bei Unmount ───
+  useEffect(() => {
+    connectToAdmin()
+
+    return () => {
+      // Viewer-Leave signalisieren
+      if (channelRef.current) {
+        try {
+          channelRef.current.send({
+            type: 'broadcast',
+            event: 'viewer-leave',
+            payload: { viewerId: viewerIdRef.current }
+          })
+        } catch {}
+        try { supabase.removeChannel(channelRef.current) } catch {}
+        channelRef.current = null
+      }
+      if (pcRef.current) {
+        try { pcRef.current.close() } catch {}
+        pcRef.current = null
+      }
+    }
+  }, [connectToAdmin])
+
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60 * 1000)
     return () => clearInterval(timer)
@@ -37,89 +199,123 @@ export default function LiveTv() {
 
   const programs = [...(live.programs || [])].sort((a, b) => String(a.time || '').localeCompare(String(b.time || '')))
   const current = currentProgram(programs, now)
+  const showLive = live.enabled || isLive
+  const timeStr = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })
 
   return (
-    <div>
-      <Seo title={t('liveTv.title')} description={t('seo.desc')} path="/live" />
-      <section className="page-head">
-        <div className="container">
-          <h1>{t('liveTv.title')}</h1>
-          <p>{t('liveTv.sub')}</p>
-        </div>
-      </section>
+    <div style={{ background: '#0a0a0a', minHeight: '100vh' }}>
+      <Seo title={`${t('liveTv.title') || 'ROJ TV'} – ${t('liveTv.live') || 'Live'}`} />
 
-      <div className="container" style={{ paddingBottom: 72 }}>
-        <div className="live-stage">
-          <div className="live-stage-top">
-            <span className="live-badge">
-              <span className="live-dot" aria-hidden="true" />
-              {t('liveTv.liveBadge')}
-            </span>
-            <span className="live-now">
-              {current ? (
-                <>
-                  <strong>{t('liveTv.liveNow')}:</strong> {tr('live:prog:' + current.time, current.title)}
-                </>
-              ) : enabled ? (
-                <>
-                  <strong>{t('liveTv.liveNow')}:</strong> {channelName}
-                </>
-              ) : (
-                t('liveTv.offline')
-              )}
-            </span>
+      {/* Live Video Player */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px' }}>
+        <div style={{ position: 'relative', width: '100%', borderRadius: 12, overflow: 'hidden', background: '#000', boxShadow: '0 0 40px rgba(0,0,0,0.8)', marginBottom: 24 }}>
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            style={{ width: '100%', aspectRatio: '16/9', objectFit: 'contain', display: 'block', background: '#000' }}
+          />
+
+          {/* Logo Overlay */}
+          <div className="tv-logo-overlay-wrap">
+            <div className="tv-logo-overlay">
+              <div className="tv-logo-bars">
+                <div className="tv-bar tv-bar-1" />
+                <div className="tv-bar tv-bar-2" />
+                <div className="tv-bar tv-bar-3" />
+                <div className="tv-bar tv-bar-4" />
+              </div>
+              <div className="tv-logo-text">
+                <span className="tv-lt tv-lt-blue">R</span>
+                <span className="tv-lt tv-lt-blue">O</span>
+                <span className="tv-lt tv-lt-blue">J</span>
+                <span className="tv-lt" style={{ width: 6 }} />
+                <span className="tv-lt tv-lt-accent">T</span>
+                <span className="tv-lt tv-lt-accent">V</span>
+              </div>
+            </div>
           </div>
 
-          {enabled ? (
-            <div className="video-stage live-player">
-              <VideoPlayer url={live.streamUrl} poster={live.poster || null} title={liveTitle || t('liveTv.title')} autoStart loop autoPlayOnScroll={false} />
-            </div>
-          ) : (
-            <div className="live-offline" role="status">
-              <span className="video-play" aria-hidden="true">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </span>
-              <p>{t('liveTv.offlineText')}</p>
+          {/* Live Badge */}
+          {showLive && (
+            <div style={{ position: 'absolute', top: 16, right: 16, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(228,67,47,0.9)', color: '#fff', padding: '6px 14px', borderRadius: 6, fontWeight: 700, fontSize: 14, zIndex: 10 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#ff4444', animation: 'livePulse 1.5s ease-in-out infinite' }} />
+              LIVE
             </div>
           )}
 
-          {channelName && <h2 className="live-title">{channelName}</h2>}
-        </div>
-
-        <section className="section">
-          <div className="container">
-            <div className="section-head">
-              <div>
-                <h2>{t('liveTv.program')}</h2>
-                <p>{t('liveTv.programSub')}</p>
-              </div>
+          {/* Status Message */}
+          {!isLive && (
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.7)' }}>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>📺</div>
+              <div style={{ color: '#aaa', fontSize: 16, fontWeight: 600 }}>{viewerMsg || 'Kein Livestream verfügbar'}</div>
+              <div style={{ color: '#666', fontSize: 13, marginTop: 8 }}>Der Stream wird automatisch gestartet, wenn der Moderator on-air ist.</div>
             </div>
-            {programs.length > 0 ? (
-              <div className="program-list">
-                <div className="program-row program-head">
-                  <span>{t('liveTv.today')}</span>
-                </div>
-                {programs.map((p, i) => {
-                  const running = current && current.time === p.time
-                  return (
-                    <div className={`program-row ${running ? 'active' : ''}`} key={`${p.time}-${i}`}>
-                      <span className="program-time">{p.time || '--:--'}</span>
-                      <span className="program-title">{tr('live:prog:' + p.time, p.title) || '—'}</span>
-                      {running && <span className="live-flag">{t('liveTv.liveNow')}</span>}
-                    </div>
-                  )
-                })}
+          )}
+
+          {/* Channel Info Bar */}
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(0,0,0,0.9))', padding: '40px 16px 16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ color: '#fff', fontSize: 18, fontWeight: 700 }}>{channelName}</div>
+                {live.description && <p style={{ color: '#888', fontSize: 14, margin: 0, lineHeight: 1.5 }}>{live.description}</p>}
               </div>
-            ) : (
-              <div className="empty-state">
-                <p>{t('liveTv.noProgram')}</p>
-              </div>
-            )}
+              <div style={{ color: '#888', fontSize: 13, fontFamily: 'monospace' }}>{timeStr}</div>
+            </div>
           </div>
-        </section>
+        </div>
       </div>
+
+      {/* Program Schedule */}
+      {programs.length > 0 && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px 24px' }}>
+          <div style={{ background: '#111', borderRadius: 8, padding: 16, border: '1px solid #222' }}>
+            <h3 style={{ color: '#D4622F', fontSize: 14, fontWeight: 700, margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: 1 }}>
+              {t('live:schedule') || 'Sendungsplan'}
+            </h3>
+            {programs.map((p, i) => {
+              const running = current === p
+              return (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 0', borderBottom: i < programs.length - 1 ? '1px solid #222' : 'none' }}>
+                  <span style={{ color: running ? '#D4622F' : '#666', fontWeight: 600, fontSize: 14, minWidth: 50 }}>{p.time}</span>
+                  <span style={{ color: running ? '#fff' : '#aaa', fontSize: 14 }}>{tr('live:prog:' + p.time, p.title) || '—'}</span>
+                  {running && <span style={{ marginLeft: 'auto', background: '#D4622F', color: '#fff', padding: '2px 8px', borderRadius: 3, fontSize: 11, fontWeight: 700 }}>LIVE</span>}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .tv-logo-overlay-wrap { position: absolute; top: 16px; left: 16px; z-index: 20; pointer-events: none; }
+        .tv-logo-overlay { display: flex; align-items: center; gap: 8px; opacity: 0.85; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7)); }
+        .tv-logo-bars { display: flex; align-items: flex-end; gap: 2px; height: 22px; direction: ltr; }
+        .tv-bar { width: 5px; border-radius: 2px 2px 1px 1px; transform-origin: bottom; animation: tv-growBar 12s cubic-bezier(.4,0,.2,1) infinite; }
+        .tv-bar-1 { background: #E8B84B; height: 10px; animation-delay: 0s; }
+        .tv-bar-2 { background: #E08A3C; height: 15px; animation-delay: 0.15s; }
+        .tv-bar-3 { background: #D4622F; height: 20px; animation-delay: 0.3s; }
+        .tv-bar-4 { background: #B8432E; height: 13px; animation-delay: 0.45s; }
+        @keyframes tv-growBar { 0% { transform: scaleY(1); } 58% { transform: scaleY(1); } 68% { transform: scaleY(0.15); } 82% { transform: scaleY(0.15); } 100% { transform: scaleY(1); } }
+        .tv-logo-text { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; display: flex; direction: ltr; font-family: 'Inter', 'Almarai', system-ui, sans-serif; position: relative; overflow: hidden; }
+        .tv-lt { display: inline-block; animation: tv-cascade 12s ease-in-out infinite; }
+        .tv-lt:nth-child(1) { animation-delay: 0s; }
+        .tv-lt:nth-child(2) { animation-delay: 0.15s; }
+        .tv-lt:nth-child(3) { animation-delay: 0.3s; }
+        .tv-lt:nth-child(4) { animation-delay: 0.45s; }
+        .tv-lt:nth-child(5) { animation-delay: 0.6s; }
+        .tv-lt:nth-child(6) { animation-delay: 0.75s; }
+        .tv-lt-blue { color: #fff; }
+        .tv-lt-accent { color: #D4622F; }
+        @keyframes tv-cascade { 0% { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); } 58% { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); } 64% { opacity: 0; filter: blur(5px); transform: translateY(4px) scale(0.92); } 78% { opacity: 0; filter: blur(5px); transform: translateY(4px) scale(0.92); } 84% { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); } 100% { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); } }
+        .tv-logo-text::after { content: ''; position: absolute; top: 0; left: -100%; width: 55%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.85), transparent); animation: tv-shimmer 12s ease infinite; pointer-events: none; }
+        @keyframes tv-shimmer { 0% { left: -100%; } 86% { left: -100%; } 96% { left: 130%; } 100% { left: 130%; } }
+        @media (prefers-reduced-motion: reduce) { .tv-bar, .tv-lt, .tv-logo-text::after { animation: none !important; opacity: 1 !important; filter: none !important; transform: none !important; } }
+        @media (max-width: 640px) { .tv-logo-overlay-wrap { top: 10px; left: 10px; } .tv-logo-bars { height: 16px; gap: 1.5px; } .tv-bar { width: 4px; } .tv-bar-1 { height: 8px; } .tv-bar-2 { height: 11px; } .tv-bar-3 { height: 15px; } .tv-bar-4 { height: 10px; } .tv-logo-text { font-size: 15px; } }
+        @media (min-width: 1024px) { .tv-logo-overlay-wrap { top: 24px; left: 24px; } .tv-logo-bars { height: 30px; gap: 3px; } .tv-bar { width: 7px; } .tv-bar-1 { height: 14px; } .tv-bar-2 { height: 20px; } .tv-bar-3 { height: 28px; } .tv-bar-4 { height: 18px; } .tv-logo-text { font-size: 28px; } }
+      `}</style>
     </div>
   )
 }
